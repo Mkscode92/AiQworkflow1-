@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     var HlsVideo = document.getElementById("Avideo");
     
-    var HlsVideoSrc = "assets/leo720p_english_with_cc.m3u8";
+    var HlsVideoSrc = "assets/leo1080p_english_with_cc.m3u8";
     const defaultOptions = {};
 
     try {
