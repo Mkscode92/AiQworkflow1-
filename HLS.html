@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>  
+        <title> page </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       
+        <link href="https://cdn.plyr.io/3.7.2/plyr.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="style.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/@millicast/sdk@latest/dist/millicast.umd.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.js"></script>
+        
+    </head>
+    <body> 
+        <div class="MediaBoxHLS">
+            <div id = "HLSdemo">HLS demo</div>
+            <div class = MainHlsBox> 
+                <video muted controls height="100%" width="100%" id = "Avideo" webkit-playsinline playsinline>
+                    <script src = "HLSMediaPlayer1.js" ></script>
+                    
+                    <track kind = "subtitles" src="assets/1. Leo - Netflix - Source English with CC.vtt" srclang="en" label="English" default/>
+                    <track kind = "subtitles" src="assets/6. Leo - Netflix - Vietnamese Sub.vtt" srclang="vt" label="Vietnamese" default/>
+                </video>
+                <audio id = "audio"></audio>
+            </div>
+            <div class = "SideHlsBox">
+                <div class="SideHlsPlayer">
+                   <video id = "Bvideo" height="100%" width="100%" muted  webkit-playsinline playsinline>
+                        <script src = "HLSMediaPlayer2.js" ></script>
+                        <track kind = "subtitles" src="assets/1. Leo - Netflix - Source English with CC.vtt" srclang="en" label="English"/>
+                        <track kind = "subtitles" src="assets/6. Leo - Netflix - Vietnamese Sub.vtt" srclang="vt" label="Vietnamese"/>
+                    </video> 
+                </div>
+                <div class="SideHlsPlayer">
+                    <video id = "Cvideo" height="100%" width="100%" muted webkit-playsinline playsinline>
+                         <script src = "HLSMediaPlayer3.js" ></script>
+                         <track kind = "subtitles" src="assets/6. Leo - Netflix - Vietnamese Sub.vtt" srclang="vt" label="Vietnamese"/>
+                         <track kind = "subtitles" src="assets/1. Leo - Netflix - Source English with CC.vtt" srclang="en" label="English"/>
+                         
+                     </video> 
+                 </div>
+                 <div class="SideHlsPlayer">
+                    <video id = "Dvideo" height="100%" width="100%" muted webkit-playsinline playsinline>
+                         <script src = "HLSMediaPlayer4.js" ></script>
+                         <track kind = "subtitles" src="assets/1. Leo - Netflix - Source English with CC.vtt" srclang="en" label="English"/>
+                         <track kind = "subtitles" src="assets/6. Leo - Netflix - Vietnamese Sub.vtt" srclang="vt" label="Vietnamese"/>
+                     </video> 
+                 </div>
+            </div>
+
+            <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+
+            <select name="select" id="select" style = "float:left"> Audio
+                <option value="audio\Leo1080p_English_with_CC.mp3">English</option>
+                <option value="audio/4. Leo - Netflix - Vietnamese audio sound track.mp3">Vietnamese</option>
+            </select>
+            <script src = "Syncronize.js"></script>
+        </div>
+        
+    </body>
+</html>

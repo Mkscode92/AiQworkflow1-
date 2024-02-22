@@ -1,0 +1,98 @@
+.Header {
+    height: 10%;
+}
+
+body {
+    background-color: rgb(37, 37, 37);
+    background-repeat: no-repeat;
+    margin: 0;
+
+    height: 100vh;
+    
+}
+
+/* WebRTS */ 
+.MediaBox {
+    background-image: linear-gradient(rgb(51, 51, 51),rgb(41, 41, 41));
+    border-radius: 1%;
+    margin: 2% 10% 0% 10%;
+    height: 70%;
+    padding: 5%;
+
+}
+
+#millicasttitle {
+    color: white;
+}
+
+.MainMediaBox {
+    background-color: rgb(0, 0, 0);
+    float: left;
+    width: 70%;
+    height: 100%;
+    display:flex ;
+}
+
+.MainMediaBox div {
+    color: rgb(233, 233, 233);
+    padding: 34%;
+}
+
+.SideMediaBox {
+    width: 28%;
+    height: 100%;
+    float: right;
+}
+
+.SidePlayer {
+    background-color: rgb(0, 0, 0);
+    height: 32%;
+    margin: 3%;
+    position: relative;
+}
+
+/* HLS ------------------------*/
+
+.MediaBoxHLS {
+    background-image: linear-gradient(rgb(51, 51, 51),rgb(41, 41, 41));
+    border-radius: 1%;
+    margin: 2% 10% 0% 10%;
+    height: 70%;
+    padding: 5%;
+}
+
+.MainHlsBox {
+    background-color: rgb(0, 0, 0);
+    height: 100%;
+    width: 70%;
+    float: left;
+    display: flex;
+}
+
+.SideHlsBox{
+    width: 28%;
+    height: 100%;
+    float: right;
+    
+}
+.SideHlsPlayer{
+    background-color: rgb(51, 51, 51);
+    height: 32%;
+    margin: 3%;
+    display: flex;
+}
+
+#Audio {
+}
+
+#Avideo::-webkit-media-controls-volume-slider {
+display:none;
+}
+
+#Avideo::-webkit-media-controls-mute-button {
+display:none;
+}
+
+#HLSdemo {
+    color:white;
+}
