@@ -1,13 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     var HlsVideo = document.getElementById("Avideo");
-    
-    var HlsVideoSrc = "assets/leo1080p_english_with_cc.m3u8";
+    var Source = "https://dfflvukqjg5l4.cloudfront.net/leo480p_no_audio.m3u8";
     const defaultOptions = {};
 
     try {
         if (Hls.isSupported()) {
             var hls = new Hls();
-            hls.loadSource(HlsVideoSrc);
+            hls.loadSource(Source);
     
             HlsVideo.controlsList = "noplaybackrate";
             HlsVideo.disablePictureInPicture = true;
@@ -15,48 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
             hls.attachMedia(HlsVideo);
     
             updateHls(hls)
-    
-            /*
-            hls.on(Hls.Events.MANIFEST_PARSED, function(event, data) {
-                const availableQualities = hls.levels.map((l) => l.height)
-    
-                defaultOptions.controls = 
-                [
-                    'play-large', 
-                    'restart', 
-                    'rewind', 
-                    'play', 
-                    'fast-forward', 
-                    'progress',
-                    'current-time', 
-                    'duration', 
-                    'mute', 
-                    'volume', 
-                    'captions', 
-                    'settings', 
-                    'pip', 
-                    'fullscreen', 
-                ];
-    
-         
-                defaultOptions.quality = {
-                    default: availableQualities[0],
-                    options: availableQualities,
-                    forced: true,
-                    onChange: (e) => {
-                        updateHls(hls)
-                        updateQuality(e);
-    
-                    }
-                }
-    
-                defaultOptions.Audio = {
-                    options: ["English", "Vietnamese", "Spanish"]
-                    
-                }
-                
-                //const plyr1 = new Plyr(HlsVideo, defaultOptions);
-            });*/
     
         }
     } catch (error) {

@@ -1,15 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-    var HlsVideo = document.getElementById("Cvideo");
-    var HlsVideoSrc = "assets/Master.m3u8";
+    var HlsVideo = document.getElementById("Avideo");
+    var Source = "https://dfflvukqjg5l4.cloudfront.net/leo480p_no_audio.m3u8";
     const defaultOptions = {};
 
-    if (Hls.isSupported()) {
-        var hls = new Hls();
-        hls.loadSource(HlsVideoSrc);
-        hls.attachMedia(HlsVideo);
-
-        updateHls(hls)
+    try {
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(Source);
+    
+            HlsVideo.controlsList = "noplaybackrate";
+            HlsVideo.disablePictureInPicture = true;
+    
+            hls.attachMedia(HlsVideo);
+    
+            updateHls(hls)
+    
+        }
+    } catch (error) {
+        window.alert(error);
     }
+
     function updateQuality(newQuality) {
         window.hls.levels.forEach((level, levelIndex) => {
             

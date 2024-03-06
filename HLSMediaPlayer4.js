@@ -1,6 +1,8 @@
+var HlsVideo;
+
 document.addEventListener("DOMContentLoaded", () => {
-    var HlsVideo = document.getElementById("Dvideo");
-    var HlsVideoSrc = "assets/Master.m3u8";
+    HlsVideo = document.getElementById("Dvideo");
+    var HlsVideoSrc = "https://dfflvukqjg5l4.cloudfront.net/leo480p_no_audio.m3u8";
     const defaultOptions = {};
 
     if (Hls.isSupported()) {
@@ -22,3 +24,4 @@ document.addEventListener("DOMContentLoaded", () => {
         window.hls = hls
     }
 })
+
