@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{var e=document.getElementById("Cvideo");var n="https://dfflvukqjg5l4.cloudfront.net/leo480p_no_audio.m3u8";const o={};if(Hls.isSupported()){var t=new Hls;t.loadSource(n);t.attachMedia(e);l(t)}function d(o){window.hls.levels.forEach((e,n)=>{if(e.height===o){window.hls.currentLevel=n}})}function l(e){window.hls=e}});

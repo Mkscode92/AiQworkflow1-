@@ -76,7 +76,6 @@ body {
     width: 70%;
     margin: 0% 1% 0% 0%;
     float: left;
-    display: flex;
 
     border: 1px solid gray;
 }
@@ -100,8 +99,6 @@ body {
     height: 28%;
     width: 90%;
     margin: 2%;
-    display: flex;
-    float: none;
 } 
 
 .SideHlsPlayer:hover {
