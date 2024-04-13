@@ -6,7 +6,6 @@ body {
     background-color: rgb(0, 0, 0);
     background-repeat: no-repeat;
     margin: 0;
-
     height: 100vh;
     
 }
@@ -72,10 +71,12 @@ body {
 
 .MainHlsBox {
     background-color: rgb(0, 0, 0);
-    height: 80%;
-    width: 70%;
-    margin: 0% 1% 0% 0%;
+    height: 60%;
+    width: 100%;
+    margin: 0% 15% 0% 0%;
     float: left;
+    box-sizing: border-box;
+    
 
     border: 1px solid gray;
 }
@@ -87,18 +88,20 @@ body {
 
 
 .SideHlsBox{
-    width: 28%;
+    width: 25%;
     height: 90%;
-    float: right;
+
+    display: inline-block;
     
 }
 
- 
+
 .SideHlsPlayer{
     background-color: rgb(0, 0, 0);
     height: 28%;
     width: 90%;
-    margin: 2%;
+    display: flex;
+    float: none;
 } 
 
 .SideHlsPlayer:hover {
@@ -119,10 +122,16 @@ body {
     text-align: center;
 
     border: 1px solid gray;
+    box-sizing: border-box;
+}
+
+.PurchaseBox {
+    float: left;
+    width: 12%;
 }
 
 .Purchase {
-    margin-top: 1%;
+    margin-bottom: 1%;
     background-color: rgb(0, 0, 0);
     font-weight: bold;
     color: rgb(67, 193, 78);

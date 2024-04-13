@@ -15,7 +15,7 @@
         <div class="MediaBoxHLS">
             <div id = "HLSdemo">HLS demo</div>
             <div style="background-color: rgb(51, 51, 51); color: red; width: 3%; text-align: right;">LiVE</div>
-            <div class = "Label" style="width: 70%;" >English</div>
+            <div class = "Label" style="width: 100%;" >English</div>
             <div class = MainHlsBox id = "AScreenBox"> 
                 <video class = "Screen" controls height="100%" width="100%" id = "Avideo" muted webkit-playsinline playsinline> 
                     <script src = "HLSMediaPlayer1.js" ></script>
@@ -28,11 +28,17 @@
                 </video>
             </div>
             
-            
-            
+            <div class = "PurchaseBox">
+                <button class="Purchase"> BUY</button>
+                <select id="select">
+                    <option value="0">English</option>
+                    <option value="1">Vietnamese</option>
+                    <option value="2">Español</option>
+                </select>
+            </div>
+
 
             <div class = "SideHlsBox">
-            
                 <div class = "Label">English</div>
                 <button class="SideHlsPlayer">
                     <div class="GlowBox" id = "BScreenBox" >
@@ -45,6 +51,9 @@
                         
                     </div>
                 </button>
+            </div>
+
+            <div class = "SideHlsBox">
                 <div class = "Label">Vietnamese</div>
                 <button class="SideHlsPlayer" id = "CScreenBox">
                     <div class="GlowBox" id = "CScreenBox">
@@ -56,7 +65,9 @@
                         </video> 
                     </div>
                 </button>
+            </div>
                 
+            <div class = "SideHlsBox">
                 <div class = "Label">Español</div>
                 
                 <button class="SideHlsPlayer" id = "DScreenBox">
@@ -71,12 +82,8 @@
                 </button>
             </div>
 
-            <button class="Purchase"> BUY</button>
-            <select id="select">
-                <option value="0">English</option>
-                <option value="1">Vietnamese</option>
-                <option value="2">Español</option>
-            </select>
+
+            
 
             <script src = "Syncronize.js"></script>
             <script src = "Switch.js"></script>
