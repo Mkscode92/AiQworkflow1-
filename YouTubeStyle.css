@@ -1,0 +1,33 @@
+body {
+    background-color: rgb(0, 0, 0);
+    background-repeat: no-repeat;
+    margin: 0;
+
+    height: 100vh;
+    
+}
+
+.MainMediaBox {
+    background-color: rgb(0, 0, 0);
+    float: left;
+    width: 70%;
+    height: 90%;
+    display: flex;
+
+    border: 1px solid gray;
+}
+
+.SideMediaBox {
+    width: 28%;
+    height: 80%;
+    float: right;
+    margin-right: 1%;
+}
+
+.SidePlayer {
+    background-color: rgb(0, 0, 0);
+    height: 37%;
+    margin-bottom: 1%;
+
+    border: 1px solid gray;
+}

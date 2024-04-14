@@ -168,6 +168,24 @@ display:none;
 display:none;
 }
 
+
+#Avideo::-webkit-media-controls-toggle-closed-captions-button {
+    -webkit-appearance: media-toggle-closed-captions-button;
+    display: flex;
+    flex: none;
+    border: none;
+    box-sizing: border-box;
+    width: 100%; /* Set width to 100% */
+    height: 100%; /* Set height to 100% */
+    line-height: 1; /* Reset line-height */
+    margin: 0; /* Reset margin */
+    padding: 0; /* Reset padding */
+    position: absolute; /* Position absolutely within video box */
+    top: 0;
+    left: 0;
+    background-color: transparent; /* Make background transparent */
+    color: inherit;
+}
 #Bvideo::-webkit-media-controls-volume-slider {
 display:none;
 }
