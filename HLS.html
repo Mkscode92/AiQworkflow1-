@@ -1,95 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>  
-        <title> page </title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <link rel="stylesheet" href="style.css">
-        <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.js"></script>
-        
-        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
-        
-    </head>
-    <body> 
-        <div class="MediaBoxHLS">
-            <div id = "HLSdemo">HLS demo</div>
-            <div style="background-color: rgb(51, 51, 51); color: red; width: 3%; text-align: right;">LiVE</div>
-            <div class = "Label" style="width: 100%;" >English</div>
-            <div class = MainHlsBox id = "AScreenBox"> 
-                <video class = "Screen" controls height="100%" width="100%" id = "Avideo" muted webkit-playsinline playsinline> 
-                    <script src = "HLSMediaPlayer1.js" ></script>
-                    
-                    <track kind = "subtitles" src="languages/1. Leo - Netflix - Source English with CC.vtt" srclang="en" label="English"/>
-                    <track kind = "subtitles" src="languages/6. Leo - Netflix - Vietnamese Sub.vtt" srclang="vt" label="Vietnamese"/>
-                    <track kind = "subtitles" src="languages/Spanish.vtt" srclang="vt" label="Spanish"/>
-
-                    <audio volume = "0.0" src="audio/Leo1080p_English_with_CC.mp3"></audio>
-                </video>
-            </div>
-            
-            <div class = "PurchaseBox">
-                <button class="Purchase"> BUY</button>
-                <select id="select">
-                    <option value="0">English</option>
-                    <option value="1">Vietnamese</option>
-                    <option value="2">Español</option>
-                </select>
-            </div>
-
-
-            <div class = "SideHlsBox">
-                <div class = "Label">English</div>
-                <button class="SideHlsPlayer">
-                    <div class="GlowBox" id = "BScreenBox" >
-                        <video class = "Screen" id = "Bvideo" height="100%" width="100%" muted webkit-playsinline playsinline> 
-                            <script src = "HLSMediaPlayer2.js" ></script>
-
-                            
-                            <audio volume = "0.0" src="audio/Leo1080p_English_with_CC.mp3"></audio>
-                        </video>
-                        
-                    </div>
-                </button>
-            </div>
-
-            <div class = "SideHlsBox">
-                <div class = "Label">Vietnamese</div>
-                <button class="SideHlsPlayer" id = "CScreenBox">
-                    <div class="GlowBox" id = "CScreenBox">
-                        <video class = "Screen" id = "Cvideo" height="100%" width="100%" muted webkit-playsinline playsinline>
-                            <script src = "HLSMediaPlayer3.js" ></script>
-
-                            <audio volume = "1.0" src="audio/4. Leo - Netflix - Vietnamese audio sound track.mp3"></audio>
-
-                        </video> 
-                    </div>
-                </button>
-            </div>
-                
-            <div class = "SideHlsBox">
-                <div class = "Label">Español</div>
-                
-                <button class="SideHlsPlayer" id = "DScreenBox">
-                    <div class="GlowBox" id = "DScreenBox">
-                        <video class = "Screen" id = "Dvideo" height="100%" width="100%" muted webkit-playsinline playsinline>
-                            <script src = "HLSMediaPlayer4.js" ></script>
-
-                            <audio volume = "1" src="audio/7. Leo - Netflix - Spanish audio sound track.wav"></audio>
-
-                        </video> 
-                    </div>
-                </button>
-            </div>
-
-
-            
-
-            <script src = "Syncronize.js"></script>
-            <script src = "Switch.js"></script>
+<head>  
+    <title>Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+</head>
+<body> 
+    <div class="MediaBoxHLS">
+        <div id="HLSdemo">HLS demo</div>
+        <div style="background-color: rgb(51, 51, 51); color: red; width: 3%; text-align: right;">LiVE</div>
+        <div class="Label" style="width: 100%;">English</div>
+        <div class="MainHlsBox" id="AScreenBox"> 
+            <video class="Screen" controls height="100%" width="100%" id="Avideo" muted webkit-playsinline playsinline>
+                <script src="HLSMediaPlayer1.js"></script>
+                <track kind="subtitles" src="languages/1. Leo - Netflix - Source English with CC.vtt" srclang="en" label="English"/>
+                <track kind="subtitles" src="languages/6. Leo - Netflix - Vietnamese Sub.vtt" srclang="vt" label="Vietnamese"/>
+                <track kind="subtitles" src="languages/Spanish.vtt" srclang="vt" label="Spanish"/>
+                <audio volume="0.0" src="audio/Leo1080p_English_with_CC.mp3"></audio>
+            </video>
         </div>
         
-    </body>
+        <div class="PurchaseBox">
+            <button class="Purchase" id="buyButton">BUY</button>
+            <select id="select">
+                <option value="0" data-link="https://buy.stripe.com/test_dR6dSaetea6egeccMO">English</option>
+                <option value="1" data-link="https://buy.stripe.com/test_eVa8xQdpa5PYgec3cf">Vietnamese</option>
+                <option value="2" data-link="https://buy.stripe.com/test_00g15odpadiqbXW288">Español</option>
+            </select>
+        </div>
+
+        <div class="SideHlsBox">
+            <div class="Label">English</div>
+            <button class="SideHlsPlayer">
+                <div class="GlowBox" id="BScreenBox">
+                    <video class="Screen" id="Bvideo" height="100%" width="100%" muted webkit-playsinline playsinline>
+                        <script src="HLSMediaPlayer2.js"></script>
+                        <audio volume="0.0" src="audio/Leo1080p_English_with_CC.mp3"></audio>
+                    </video>
+                </div>
+            </button>
+        </div>
+
+        <div class="SideHlsBox">
+            <div class="Label">Vietnamese</div>
+            <button class="SideHlsPlayer" id="CScreenBox">
+                <div class="GlowBox" id="CScreenBox">
+                    <video class="Screen" id="Cvideo" height="100%" width="100%" muted webkit-playsinline playsinline>
+                        <script src="HLSMediaPlayer3.js"></script>
+                        <audio volume="1.0" src="audio/4. Leo - Netflix - Vietnamese audio sound track.mp3"></audio>
+                    </video>
+                </div>
+            </button>
+        </div>
+            
+        <div class="SideHlsBox">
+            <div class="Label">Español</div>
+            <button class="SideHlsPlayer" id="DScreenBox">
+                <div class="GlowBox" id="DScreenBox">
+                    <video class="Screen" id="Dvideo" height="100%" width="100%" muted webkit-playsinline playsinline>
+                        <script src="HLSMediaPlayer4.js"></script>
+                        <audio volume="1" src="audio/7. Leo - Netflix - Spanish audio sound track.wav"></audio>
+                    </video>
+                </div>
+            </button>
+        </div>
+
+        <script src="Syncronize.js"></script>
+        <script src="Switch.js"></script>
+
+        <script>
+            const selectElement = document.getElementById('select');
+            const buyButton = document.getElementById('buyButton');
+            
+            buyButton.addEventListener('click', function() {
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+                const link = selectedOption.dataset.link;
+                window.location.href = link;
+            });
+        </script>
+    </div>
+</body>
 </html>
