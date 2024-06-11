@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,15 +166,15 @@
             </div>
             <h1 style="text-decoration: underline; margin-top: 15px;">Register</h1>
             <div class="input-box">
-                <input type="text" name="firstName" placeholder="Enter Your First Name" required minlength="2">
+                <input type="text" placeholder="Enter Your First Name" required minlength="2">
                 <i class='bx bxs-user'></i>
             </div>
             <div class="input-box">
-                <input type="email" name="email" placeholder="Email" required>
+                <input type="email" placeholder="Email" required>
                 <i class='bx bx-envelope'></i>
             </div>
             <div class="input-box">
-                <input type="tel" name="phone" placeholder="Phone Number (Format: 1234567890)" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"required minlength="10">
+                <input type="tel" placeholder="Phone Number (Format: 1234567890)" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"required minlength="10">
                 <i class='bx bx-phone'></i>
             </div>
 
@@ -194,29 +195,8 @@
         homeButton.addEventListener('click', function(event) {
           const form = document.getElementById('myForm');
           if (form.checkValidity()) {
-            // Collect form data
-            const formData = new FormData(form);
-            const formObject = Object.fromEntries(formData.entries());
-            
-            // Send form data to the server
-            fetch('/send-email', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(formObject),
-            })
-            .then(response => {
-              if (response.ok) {
-                window.location.href = 'https://mkscode92.github.io/AiQworkflow1-/HLS.html';
-              } else {
-                alert('There was an error sending the email.');
-              }
-            })
-            .catch(error => {
-              console.error('Error:', error);
-              alert('There was an error sending the email.');
-            });
+            // All required fields are filled, redirect to the desired weblink
+            window.location.href = 'https://mkscode92.github.io/AiQworkflow1-/HLS.html';
           } else {
             // Highlight the missing fields
             form.reportValidity();
@@ -230,7 +210,7 @@
         (function(){
         var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
         s1.async=true;
-        s1.src='https://embed.tawk.to/666781f4981b6c56477bb926/1i0257923';
+        s1.src='https://embed.tawk.to/666789be9a809f19fb3c36d7/1i02743m0';
         s1.charset='UTF-8';
         s1.setAttribute('crossorigin','*');
         s0.parentNode.insertBefore(s1,s0);
@@ -239,18 +219,3 @@
     <!--End of Tawk.to Script-->
 </body>
 </html>
-
-
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/666781f4981b6c56477bb926/1i0257923';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
-    </script>
-    <!--End of Tawk.to Script-->
