@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VOD Registration</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", "sans-serif";
+        }
+
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: url("live.png");
+            background-size: cover;        
+        }
+
+        .wrapper{
+            width: 450px;
+            background-color: white;
+            color: black;
+        }
+
+        @media (max-width: 700px){
+            body{
+                background: #96e3f3;
+            }
+            .wrapper{
+                width: 350px;
+            }
+        }
+
+        .wrapper h1{
+            font-size: 36px;
+            text-align: center;
+        }
+
+        .wrapper .input-box{
+            position: relative;
+            width: 90%;
+            height: 50px;
+            margin: 30px 5%;
+        }
+
+        .input-box input{
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            border: 2px solid rgba(0, 0, 0, 0.4);
+            border-radius: 40px;
+            font-size: 16px;
+            color: black;
+            padding: 20px 45px 20px 20px;
+        }
+
+        .input-box input::placeholder{
+            color: black;
+        }
+
+        .input-box i{
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        .image-title-container {
+            display: flex;           
+            align-items: center;    
+            gap: 5%;             
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .image-title-container span { 
+            margin-top: 5px;  
+            color: white;      
+            font-weight: bold;
+        }
+
+        .wrapper .remember-forgot{
+            display: flex;
+            justify-content: space-around;
+            font-size: 14.5px;
+            margin: -15px 0 15px;
+        }
+
+        .remember-forgot label input{
+            accent-color: blue;
+        }
+
+        .remember-forgot a{
+            color: blue;
+            text-decoration: none;
+        }
+        .remember-forgot a:hover{
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px){
+            .remember-forgot a{
+            text-decoration: underline;
+            }
+        }
+
+        .wrapper .btn{
+            width: 90%;
+            height: 45px;
+            background-color: rgb(2, 153, 47);
+            border: none; 
+            outline: none;
+            border-radius: 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,.1);
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            font-weight: 600;
+            margin: 0 5%;
+            box-shadow: 1px 1px 17px rgb(2 153 47 / 54%);
+            z-index: 1000;
+        }
+
+        .wrapper .register-link{
+            font-size: 10.5px;
+            text-align: center;
+            margin: 20px 45px 10px 45px;
+        }
+
+        .wrapper .register-link a{
+            color: blue;
+        }
+
+        input[type="text"]::placeholder {
+            color: grey;
+        }
+
+        input[type="email"]::placeholder {
+            color: grey;
+        }
+
+        input[type="tel"]::placeholder {
+            color: grey;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <form id="myForm">
+            <div style="background-color: rgb(2, 153, 47);" class="image-title-container">
+                <span>Live Video Session</span> 
+            </div>
+            <h1 style="text-decoration: underline; margin-top: 15px;">Register</h1>
+            <div class="input-box">
+                <input type="text" name="firstName" placeholder="Enter Your First Name" required minlength="2">
+                <i class='bx bxs-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="email" name="email" placeholder="Email" required>
+                <i class='bx bx-envelope'></i>
+            </div>
+            <div class="input-box">
+                <input type="tel" name="phone" placeholder="Phone Number (Format: 1234567890)" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"required minlength="10">
+                <i class='bx bx-phone'></i>
+            </div>
+
+            <button style="display: flex; justify-content: center; align-items: center;" type="button" class="btn" id="button">
+                <p style="padding-right: 10px;">Register to the LiVE Session</p>
+                <i style="font-size: 28px;" class='bx bx-right-arrow-circle'></i>
+            </button>
+
+            <div class="register-link">
+                <p>By submitting this form you are opting in and consenting to receive emails and text messages, and agree to the Terms of Service & Privacy Policy. Reply STOP to cancel, HELP for help.</p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const homeButton = document.getElementById('button');
+      
+        homeButton.addEventListener('click', function(event) {
+          const form = document.getElementById('myForm');
+          if (form.checkValidity()) {
+            // Collect form data
+            const formData = new FormData(form);
+            const formObject = Object.fromEntries(formData.entries());
+            
+            // Send form data to the server
+            fetch('/send-email', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formObject),
+            })
+            .then(response => {
+              if (response.ok) {
+                window.location.href = 'https://mkscode92.github.io/AiQworkflow1-/HLS.html';
+              } else {
+                alert('There was an error sending the email.');
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('There was an error sending the email.');
+            });
+          } else {
+            // Highlight the missing fields
+            form.reportValidity();
+          }
+        });
+    </script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/666781f4981b6c56477bb926/1i0257923';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+</html>
+
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/666781f4981b6c56477bb926/1i0257923';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
