@@ -3,7 +3,7 @@ var BPlayer;
 var CPlayer;
 var Dplayer; 
 
-var VIDEOID = "VqkSBRtdK7M";
+var VIDEOID = "5RtR8GaW1dE";
 
 function onYouTubeIframeAPIReady() {
     console.log("ready");
@@ -15,7 +15,7 @@ function onYouTubeIframeAPIReady() {
         playerVars: {
             playersinline:1,
             autoplay:1,
-            controls:1
+            controls:0
         }
     })
     BPlayer = new YT.Player("SidePlayer1",{
