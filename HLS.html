@@ -76,12 +76,18 @@
             const selectElement = document.getElementById('select');
             const buyButton = document.getElementById('buyButton');
             const aVideo = document.getElementById('Avideo');
+            const bVideo = document.getElementById('Bvideo');
+            const cVideo = document.getElementById('Cvideo');
+            const dVideo = document.getElementById('Dvideo');
             let purchaseMade = false;
 
             aVideo.addEventListener('play', function(event) {
                 if (!purchaseMade) {
                     event.preventDefault();
                     aVideo.pause();
+                    bVideo.pause();
+                    cVideo.pause();
+                    dVideo.pause();
                     alert('You need to buy the language option first.');
                 }
             });
