@@ -188,7 +188,20 @@
         </form>
     </div>
 
-    
+    <script>
+        const homeButton = document.getElementById('button');
+      
+        homeButton.addEventListener('click', function(event) {
+          const form = document.getElementById('myForm');
+          if (form.checkValidity()) {
+            // All required fields are filled, redirect to the desired weblink
+            window.location.href = 'https://mkscode92.github.io/AiQworkflow1-/HLS.html';
+          } else {
+            // Highlight the missing fields
+            form.reportValidity();
+          }
+        });
+    </script>
 
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
