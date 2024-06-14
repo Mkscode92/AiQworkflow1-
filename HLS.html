@@ -75,13 +75,25 @@
         <script>
             const selectElement = document.getElementById('select');
             const buyButton = document.getElementById('buyButton');
-            
+            const aVideo = document.getElementById('Avideo');
+            let purchaseMade = false;
+
+            aVideo.addEventListener('play', function(event) {
+                if (!purchaseMade) {
+                    event.preventDefault();
+                    aVideo.pause();
+                    alert('You need to buy the language option first.');
+                }
+            });
+
             buyButton.addEventListener('click', function() {
                 const selectedOption = selectElement.options[selectElement.selectedIndex];
                 const link = selectedOption.dataset.link;
+                purchaseMade = true;
                 window.location.href = link;
             });
         </script>
     </div>
 </body>
 </html>
+
