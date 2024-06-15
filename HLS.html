@@ -76,37 +76,10 @@
             const selectElement = document.getElementById('select');
             const buyButton = document.getElementById('buyButton');
             const aVideo = document.getElementById('Avideo');
-
-            const purchaseKey = 'purchasedLanguages';
-
-            // Function to get purchased languages from local storage
-            function getPurchasedLanguages() {
-                const purchased = localStorage.getItem(purchaseKey);
-                return purchased ? JSON.parse(purchased) : [];
-            }
-
-            // Function to add a purchased language to local storage
-            function addPurchasedLanguage(language) {
-                const purchased = getPurchasedLanguages();
-                if (!purchased.includes(language)) {
-                    purchased.push(language);
-                    localStorage.setItem(purchaseKey, JSON.stringify(purchased));
-                }
-            }
-
-            const purchasedLanguages = getPurchasedLanguages();
-
-            // Function to check if a language is purchased
-            function isLanguagePurchased(language) {
-                return purchasedLanguages.includes(language);
-            }
-
-            // Prevent playback of languages that are not purchased
-            const languages = ['English', 'Vietnamese', 'Español'];
+            let purchaseMade = false;
 
             aVideo.addEventListener('play', function(event) {
-                const selectedLanguage = selectElement.options[selectElement.selectedIndex].textContent;
-                if (!isLanguagePurchased(selectedLanguage)) {
+                if (!purchaseMade) {
                     event.preventDefault();
                     aVideo.pause();
                     alert('You need to buy the language option first.');
@@ -115,25 +88,9 @@
 
             buyButton.addEventListener('click', function() {
                 const selectedOption = selectElement.options[selectElement.selectedIndex];
-                const selectedLanguage = selectedOption.textContent;
                 const link = selectedOption.dataset.link;
-
-                addPurchasedLanguage(selectedLanguage);
+                purchaseMade = true;
                 window.location.href = link;
-            });
-
-            // Ensure video elements are paused if their corresponding languages are not purchased
-            languages.forEach(language => {
-                if (!isLanguagePurchased(language)) {
-                    const videoElement = document.getElementById(language.charAt(0) + 'video');
-                    if (videoElement) {
-                        videoElement.addEventListener('play', function(event) {
-                            event.preventDefault();
-                            videoElement.pause();
-                            alert('You need to buy the language option first.');
-                        });
-                    }
-                }
             });
         </script>
     </div>
