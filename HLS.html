@@ -84,58 +84,45 @@
             let purchased3 = false; 
 
             aVideo.addEventListener('play', function(event) {
-                if (aVideo.src === bVideo.src){
-                    if (purchased1 == false) {
-                        event.preventDefault();
-                        aVideo.pause();
-                        bVideo.pause();
-                        cVideo.pause();
-                        dVideo.pause();
-                        alert('You need to buy the English Player first.');
-                    }   
-                }
-
-                if (aVideo.src === cVideo.src){
-                    if (purchased2 == false) {
-                        event.preventDefault();
-                        aVideo.pause();
-                        bVideo.pause();
-                        cVideo.pause();
-                        dVideo.pause();
-                        alert('You need to buy the Vietnamese Player first.');
-                    }   
-                }
-
-                if (aVideo.src === dVideo.src){
-                    if (purchased3 == false) {
-                        event.preventDefault();
-                        aVideo.pause();
-                        bVideo.pause();
-                        cVideo.pause();
-                        dVideo.pause();
-                        alert('You need to buy the Spanish Player first.');
-                    }   
+                if (aVideo.src === bVideo.src && !purchased1) {
+                    aVideo.pause();
+                    bVideo.pause();
+                    cVideo.pause();
+                    dVideo.pause();
+                    alert('You need to buy the English Player first.');
+                } else if (aVideo.src === cVideo.src && !purchased2) {
+                    aVideo.pause();
+                    bVideo.pause();
+                    cVideo.pause();
+                    dVideo.pause();
+                    alert('You need to buy the Vietnamese Player first.');
+                } else if (aVideo.src === dVideo.src && !purchased3) {
+                    aVideo.pause();
+                    bVideo.pause();
+                    cVideo.pause();
+                    dVideo.pause();
+                    alert('You need to buy the Spanish Player first.');
                 }
             });
 
             buyButton.addEventListener('click', function() {
                 const selectedOption = selectElement.options[selectElement.selectedIndex];
                 const link = selectedOption.dataset.link;
-                purchaseMade = true;
-                window.location.href = link;
+                const selectedValue = selectElement.value;
 
-                if (selectedOption == 0){
+                // Update purchase status
+                if (selectedValue === "0") {
                     purchased1 = true; 
-                }
-                if (selectedOption == 1){
+                } else if (selectedValue === "1") {
                     purchased2 = true; 
-                }
-                if (selectedOption == 2){
+                } else if (selectedValue === "2") {
                     purchased3 = true; 
-                }             
+                }
+
+                // Redirect to purchase link
+                window.location.href = link;
             });
         </script>
     </div>
 </body>
 </html>
-
