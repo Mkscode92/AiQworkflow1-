@@ -79,19 +79,43 @@
             const bVideo = document.getElementById('Bvideo');
             const cVideo = document.getElementById('Cvideo');
             const dVideo = document.getElementById('Dvideo');
-            let purchaseMade = false;
+            let purchased1 = false;
+            let purchased2 = false; 
+            let purchased3 = false; 
 
             aVideo.addEventListener('play', function(event) {
-                if (!purchaseMade) {
-                    event.preventDefault();
-                    aVideo.pause();
-                    bVideo.pause();
-                    cVideo.pause();
-                    dVideo.pause();
-                    alert('You need to buy the language option first.');
+                if (aVideo.src === bVideo.src){
+                    if (purchased1 == false) {
+                        event.preventDefault();
+                        aVideo.pause();
+                        bVideo.pause();
+                        cVideo.pause();
+                        dVideo.pause();
+                        alert('You need to buy the English Player first.');
+                    }   
                 }
-            
-                //if (aVideo.src === bVideo.src)
+
+                if (aVideo.src === cVideo.src){
+                    if (purchased2 == false) {
+                        event.preventDefault();
+                        aVideo.pause();
+                        bVideo.pause();
+                        cVideo.pause();
+                        dVideo.pause();
+                        alert('You need to buy the Vietnamese Player first.');
+                    }   
+                }
+
+                if (aVideo.src === dVideo.src){
+                    if (purchased3 == false) {
+                        event.preventDefault();
+                        aVideo.pause();
+                        bVideo.pause();
+                        cVideo.pause();
+                        dVideo.pause();
+                        alert('You need to buy the Spanish Player first.');
+                    }   
+                }
             });
 
             buyButton.addEventListener('click', function() {
@@ -99,6 +123,16 @@
                 const link = selectedOption.dataset.link;
                 purchaseMade = true;
                 window.location.href = link;
+
+                if (selectedOption == 0){
+                    purchased1 = true; 
+                }
+                if (selectedOption == 1){
+                    purchased2 = true; 
+                }
+                if (selectedOption == 2){
+                    purchased3 = true; 
+                }             
             });
         </script>
     </div>
