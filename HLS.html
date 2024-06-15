@@ -122,12 +122,11 @@
                 window.location.href = link;
             });
 
-            // Disable video elements for languages that are not purchased
+            // Ensure video elements are paused if their corresponding languages are not purchased
             languages.forEach(language => {
                 if (!isLanguagePurchased(language)) {
                     const videoElement = document.getElementById(language.charAt(0) + 'video');
                     if (videoElement) {
-                        videoElement.controls = false;
                         videoElement.addEventListener('play', function(event) {
                             event.preventDefault();
                             videoElement.pause();
