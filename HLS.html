@@ -76,55 +76,20 @@
             const selectElement = document.getElementById('select');
             const buyButton = document.getElementById('buyButton');
             const aVideo = document.getElementById('Avideo');
-            const bVideo = document.getElementById('Bvideo');
-            const cVideo = document.getElementById('Cvideo');
-            const dVideo = document.getElementById('Dvideo');
-            let purchased1 = false;
-            let purchased2 = false; 
-            let purchased3 = false; 
+            let purchaseMade = false;
 
-            function checkPurchaseStatus(video, purchased, message) {
-                if (!purchased) {
-                    video.pause();
-                    alert(message);
+            aVideo.addEventListener('play', function(event) {
+                if (!purchaseMade) {
+                    event.preventDefault();
+                    aVideo.pause();
+                    alert('You need to buy the language option first.');
                 }
-            }
-
-            aVideo.addEventListener('play', function() {
-                if (aVideo.src === bVideo.src) {
-                    checkPurchaseStatus(aVideo, purchased1, 'You need to buy the English Player first.');
-                } else if (aVideo.src === cVideo.src) {
-                    checkPurchaseStatus(aVideo, purchased2, 'You need to buy the Vietnamese Player first.');
-                } else if (aVideo.src === dVideo.src) {
-                    checkPurchaseStatus(aVideo, purchased3, 'You need to buy the Spanish Player first.');
-                }
-            });
-
-            bVideo.addEventListener('play', function() {
-                checkPurchaseStatus(bVideo, purchased1, 'You need to buy the English Player first.');
-            });
-
-            cVideo.addEventListener('play', function() {
-                checkPurchaseStatus(cVideo, purchased2, 'You need to buy the Vietnamese Player first.');
-            });
-
-            dVideo.addEventListener('play', function() {
-                checkPurchaseStatus(dVideo, purchased3, 'You need to buy the Spanish Player first.');
             });
 
             buyButton.addEventListener('click', function() {
                 const selectedOption = selectElement.options[selectElement.selectedIndex];
                 const link = selectedOption.dataset.link;
-                const selectedValue = selectElement.value;
-
-                if (selectedValue === "0") {
-                    purchased1 = true; 
-                } else if (selectedValue === "1") {
-                    purchased2 = true; 
-                } else if (selectedValue === "2") {
-                    purchased3 = true; 
-                }
-
+                purchaseMade = true;
                 window.location.href = link;
             });
         </script>
