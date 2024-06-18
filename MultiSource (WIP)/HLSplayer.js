@@ -1,15 +1,27 @@
+const EnglLink = "https://dfflvukqjg5l4.cloudfront.net/Leo1080p_English/Leo1080p_English_with_CCLeoEnglishMod.m3u8" // English
+const SpanLink = "https://dfflvukqjg5l4.cloudfront.net/Leo1080p_Spanish/Leo1080p_Spanish - Made with ClipchampLeoSpanishModified.m3u8" //Spanish
+const VietLink = "https://dfflvukqjg5l4.cloudfront.net/Leo1080p_Viet/LeoVietDubLeoVietModified.m3u8" //Viet
+
 function AddAudio(AudioElement,player,Presets){ 
+
     var AudioOption = document.createElement("button");
+
 
     AudioOption.classList = "AudioOption";
     AudioOption.textContent = Presets.label;
 
-    var DisplayHeight = String(10 * (player.textTracks().length + 1)) + "%";
+    var DisplayHeight = String(15 * (AudioElement.childNodes.length + 1)) + "%";
     
     AudioOption.style.top = DisplayHeight;
     AudioElement.append(AudioOption);
-    
 
+    AudioOption.addEventListener('click', function() {
+        var TimeStamp = player.currentTime();
+        hls.loadSource(Presets.src);
+        player.currentTime(TimeStamp);
+        player.play();
+    }) 
+    
 }
 
 function AddSubtitle(SubtitleElement,player,Presets) {
@@ -18,14 +30,21 @@ function AddSubtitle(SubtitleElement,player,Presets) {
     SubtitleOption.classList = "SubtitleOption";
     SubtitleOption.textContent = Presets.label;
 
-    var DisplayHeight = String(10 * (player.textTracks().length + 1)) + "%";
+    let index = player.textTracks().length;
 
+    var DisplayHeight = String(15 * (index + 1)) + "%";
     SubtitleOption.style.top = DisplayHeight;
-    player.addRemoteTextTrack(Presets);
     SubtitleElement.append(SubtitleOption);
 
+    player.addRemoteTextTrack(Presets);
+
+
+
     SubtitleOption.addEventListener('click', function() {
-        console.log("hi");
+        for (let i = 0; i < player.textTracks().length; i++) {
+            player.textTracks()[i].mode = 'hidden';
+        }
+        player.textTracks()[index].mode = 'showing';
     })
 }
 
@@ -80,28 +99,52 @@ function HLSVideo(ParentElement) {
             coverDiv.style.display = 'none';
             coverDiv.style.pointerEvents = 'none';
         })
+        ExitButton.textContent = "X";
+
+
 
         AddAudio(AudioList, player, {
             label: 'English',
-            src: '',
+            src: EnglLink,
           })
 
-        AddSubtitle( SubtitleList, player, {
+        AddAudio(AudioList, player, {
+            label: 'Spanish',
+            src: SpanLink,
+          })
+
+        AddAudio(AudioList, player, {
+            label: 'Vietnamese',
+            src: VietLink,
+          })
+
+          
+
+        AddSubtitle(SubtitleList, player, {
             kind: 'captions',
             label: 'Off',
-            src: ' '
+            src: ''
         })
 
-        AddSubtitle( SubtitleList, player, {
+        AddSubtitle(SubtitleList, player, {
             kind: 'captions',
             label: 'English',
-            language: 'en',
-            src: 'languages/1. Leo - Netflix - Source English with CC.vtt',
-            srclang: 'en'
+            src: 'languages/English.vtt'
+        })
+
+        AddSubtitle(SubtitleList, player, {
+            kind: 'captions',
+            label: 'Spanish',
+            src: 'languages/Spanish.vtt'
+        })
+
+        AddSubtitle(SubtitleList, player, {
+            kind: 'captions',
+            label: 'Vietnamese',
+            src: 'languages/Vietnamese.vtt'
         })
 
 
-        console.log(player.textTracks().length);
 
     
         // Enable the captions track automatically
@@ -109,9 +152,10 @@ function HLSVideo(ParentElement) {
     });
 
     // Hls
-    hls.loadSource("https://dfflvukqjg5l4.cloudfront.net/leo480p_no_audio.m3u8");
+    hls.loadSource(EnglLink);
     hls.attachMedia(video);
     window.hls = hls;
+
 }
 
 

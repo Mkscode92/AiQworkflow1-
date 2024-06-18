@@ -46,7 +46,7 @@ body {
     border: 1px solid gray;
 }
 
-/* VideoPlayer */
+/* HLSVideoPlayer */
 
 
 .vjs-menu-content {
@@ -66,11 +66,18 @@ body {
 }
 
 .exitButton {
+
     position: absolute;
     width: 10%;
     height: 10%;
     right: 0%;
     background-color: transparent;
+    border: 0px;
+
+    font-size: 40px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 650;
+    color: rgb(230, 230, 230);
 }
 
 .AudioList::before {
@@ -141,3 +148,4 @@ body {
 
     border-width: 0px;
 }
+
