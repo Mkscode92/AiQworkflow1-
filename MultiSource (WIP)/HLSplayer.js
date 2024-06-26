@@ -22,6 +22,7 @@ function AddAudio(AudioElement,player,Presets){
         player.play();
     }) 
     
+    
 }
 
 function AddSubtitle(SubtitleElement,player,Presets) {
