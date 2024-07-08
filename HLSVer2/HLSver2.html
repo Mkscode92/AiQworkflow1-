@@ -1,0 +1,42 @@
+<html lang="en">
+    <head>  
+        <title> test </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+        <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet"/>
+
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+        <link rel="stylesheet" href="HLSver2.css">
+        
+        
+    </head>
+    <body> 
+        <p style = "color: white; text-decoration: underline;">HLS Demo</p>
+        <div class="PurchaseBox">
+            <button class="Purchase" id="buyButton">BUY</button>
+            <select id="select">
+                <option value="0" data-link="https://buy.stripe.com/bIYcP40j65EqbOU7sv">English</option>
+                <option value="1" data-link="https://buy.stripe.com/dR65mC7Ly6IubOUcMO">Vietnamese</option>
+                <option value="2" data-link="https://buy.stripe.com/cN25mC5Dqff01agbIJ">Español</option>
+            </select>
+        </div>
+        <div class="MainMediaBox" id="MainMediaBox"></div>
+
+        <script src="HLSplayer.js"></script>
+        <script>
+            const selectElement = document.getElementById('select');
+            const buyButton = document.getElementById('buyButton');
+            const aVideo = document.getElementById('Avideo');
+            let purchaseMade = false;
+
+            buyButton.addEventListener('click', function() {
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+                const link = selectedOption.dataset.link;
+                purchaseMade = true;
+                window.location.href = link;
+            });
+        </script>
+    </body>
+</html>
