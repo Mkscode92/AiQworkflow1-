@@ -1,106 +1,61 @@
-let accID = "Ww6rEz";
-let streamName = "TViP4_VTV1.live"                   
+let e="Ww6rEz";
+let t="TViP4_VTV1.live";
+const d=()=>window.millicast.Director.getSubscriber({streamName:t,streamAccountId:e});
+const n=new window.millicast.View(t,d);const i=new Set;
+const a=new Map;
 
-
-
-const tokenGenerator = () => 
-    window.millicast.Director.getSubscriber({
-        streamName: streamName,
-        streamAccountId: accID
-    });
-    
-const millicastView = new window.millicast.View(streamName, tokenGenerator); // creates millicast which takes in stream name and token
-
-const activeSources = new Set();
-const sourceIdTransceiversMap = new Map();
-
-millicastView.on("broadcastEvent", (event) => { // listener; turns on whenever a stream is live
-    
-    const { name, data } = event;
-
-    switch (name) {
-        case "active":
-            activeSources.add(data.sourceId);
-            addStreamToYourVideoTag(data.sourceId);
-            break;
-        case "inactive":
-            activeSources.delete(data.sourceId);
-            RemoveVideo(data.sourceId);
-            
-            break;
-    }
-    
+n.on("broadcastEvent",e=>{const{name:t,data:d}=e;
+  switch(t) {
+    case"active":
+      i.add(d.sourceId);
+      c(d.sourceId);
+      break;
+    case"inactive":
+      i["delete"](d.sourceId);
+      o(d.sourceId);
+      break
+  }
 });
 
-const addStreamToYourVideoTag = async (sourceId) => { 
-    const mediaStream = new MediaStream();
-    const videoTransceiver = await millicastView.addRemoteTrack("video", [mediaStream]);
-    const audioTransceiver = await millicastView.addRemoteTrack("audio", [mediaStream]);
+const c=async e=> {
+  const t=new MediaStream;
+  const d=await n.addRemoteTrack("video",[t]);
+  const i=await n.addRemoteTrack("audio",[t]);
+  a.set(e,{videoMediaId:d.mid,audioMediaId:i.mid});
+  s(t,e);
+  await n.project(e,[{trackId:"video",mediaId:d.mid,media:"video"},{trackId:"audio",mediaId:i.mid,media:"audio"}])
+};
 
-    sourceIdTransceiversMap.set(sourceId, {
-        videoMediaId: videoTransceiver.mid,
-        audioMediaId: audioTransceiver.mid,
-    });
+const o=async e=>{const t=document.getElementById(e);
+const d=a.get(e);
 
-    createVideoElement(mediaStream, sourceId);
-    
-    await millicastView.project(sourceId, [
-        {
-            trackId: "video",
-            mediaId: videoTransceiver.mid,
-            media: "video",
-        },
-        {
-            trackId: "audio",
-            mediaId: audioTransceiver.mid,
-            media: "audio",
-        },
-    ]);
+a["delete"](e);
+await n.unproject([d.videoMediaId,d.audioMediaId]);
+document.getElementById(e).remove()};
 
-    
-}
+const s=(e,t)=>{const d=document.getElementById("MainMediaBox");
+const i=document.getElementById("SidePlayer1");
+const n=document.getElementById("SidePlayer2");
+const a=document.getElementById("SidePlayer3");
+const c=document.createElement("video");c.id=t;
 
-const RemoveVideo = async (sourceId) => {
-    const video = document.getElementById(sourceId);
-    const sourceTransceivers = sourceIdTransceiversMap.get(sourceId);
+c.srcObject=e;c.autoplay=true;c.style.width="69%";
+c.style.height="90%";c.style.position="absolute";
 
-    sourceIdTransceiversMap.delete(sourceId);
-    await millicastView.unproject([sourceTransceivers.videoMediaId, sourceTransceivers.audioMediaId]);
-
-    document.getElementById(sourceId).remove();
-}
-
-const MainMediaBox = document.getElementById("MainMediaBox");
-const Sp1 = document.getElementById("SidePlayer1"); 
-const Sp2 = document.getElementById("SidePlayer2"); 
-const Sp3 = document.getElementById("SidePlayer3"); 
-
-const createVideoElement = (mediaStream, sourceId) => {
-    const video = document.createElement("video");
-
-    video.id = sourceId;
-    video.srcObject = mediaStream;
-    video.autoplay = true;
-    
-    video.style.width = "100%";
-    video.style.height = "100%";
-    
-    if (MainMediaBox.children.length < 1) {
-        video.controls = true;
-        MainMediaBox.appendChild(video);
-        
-    } else if  (Sp1.children.length < 1 ) {
-        Sp1.appendChild(video);
-        
-    } else if  (Sp2.children.length < 1 ) {
-        Sp2.appendChild(video);
-    } else if  (Sp3.children.length < 1 ) {
-        Sp3.appendChild(video);
-    }
-}
-
-try {
-    millicastView.connect();
-} catch (e) {
-    millicastView.reconnect();
-}
+if (d.children.length==1) {
+  c.controls=true;
+  d.appendChild(c)
+}else if (i.children.length==0) {
+  i.appendChild(c);
+  c.style.position="relative";c.style.width="100%";
+  c.style.height="90%"
+}else if (n.children.length==0) {
+  n.appendChild(c);
+  c.style.width="100%";
+  c.style.height="100%"
+}else if (i.children.length==0) {
+  a.appendChild(c);
+  c.style.width="100%";
+  c.style.height="100%"}
+};
+try{n.connect()}catch(l){n.reconnect()}
