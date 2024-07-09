@@ -1,0 +1,48 @@
+<html lang="en">
+    <head>  
+        <title> page </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- style -->
+        <link rel="stylesheet" href="MultiSource.css">
+
+        
+
+        <!-- WebRTC -->
+        <script src="https://cdn.jsdelivr.net/npm/@millicast/sdk@latest/dist/millicast.umd.js"></script>
+        
+        <!-- Hls-->
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+        <script src="HLSplayer.js"></script>
+        
+        <!-- Video-js (for HLS) --> 
+        <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+        <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+
+        <!-- plyr (for youtube) -->
+        <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+        <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
+        
+        
+    </head>
+    <body> 
+        <div class=MediaBox> 
+            <div style = "color: white"> MultiSource Demo </div>
+            <div class="MainMediaBox" id="MainMediaBox"></div>
+            <div class = "SideMediaBox">
+                <div class="SidePlayer" id = "SidePlayer1"> <iframe class="youtube_Iframe"></iframe></div>
+                <div class="SidePlayer" id = "SidePlayer2"></div>
+                <div class="SidePlayer" id = "SidePlayer3"></div>
+            </div>
+
+            
+        </div> 
+        <script>
+            HLSVideo(document.getElementById("MainMediaBox"), [EnglLink,SpanLink,VietLink], true);
+        </script>
+        <script src="MultiSource.js"></script>
+        <script src="WebRTCPlayer.js"></script>
+        <script src="YouTubePlayer.js"></script>
+    </body>
+</html>
