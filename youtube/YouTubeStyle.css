@@ -2,7 +2,7 @@ body {
   background-color: rgb(0, 0, 0);
   background-repeat: no-repeat;
   margin: 0;
-
+  overflow: hidden;
   height: 100vh;
 }
 
@@ -11,8 +11,6 @@ body {
   float: left;
   width: 70%;
   height: 90%;
-  display: flex;
-
   border: 1px solid gray;
 }
 
