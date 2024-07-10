@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+    <title>HLS Demo Pay Per View</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Hls.css">
+
+    <!-- VideoJS API-->
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+
+    <!-- Hls API-->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+    <script src="HLSplayer.js"></script>
+
+</head>
+<body> 
+    <div class="MediaBoxHLS">
+        <!-- labels -->
+        <div id="HLSdemo" style="color: white;">HLS Demo - Pay Per View Version</div>
+        <div style="background-color: rgb(51, 51, 51); color: red; width: 3%; text-align: center;">LiVE</div>
+
+        <div class="MainMediaBox" id="MainMediaBox"><div class="LanguageLabel">English</div></div>
+        <div class = "SideMediaBox">
+            <div class="SidePlayer" id = "SidePlayer1"><div class="LanguageLabel">English</div><canvas class="canvas" id = "canvas1"></canvas></div>
+            <div class="SidePlayer" id = "SidePlayer2"><div class="LanguageLabel">Vietnamese</div><canvas class="canvas" id = "canvas2"></canvas></div>
+            <div class="SidePlayer" id = "SidePlayer3"><div class="LanguageLabel">Spanish</div><canvas class="canvas" id = "canvas3"></canvas></div>
+        </div>
+
+        <div class="PurchaseBox">
+            <button class="Purchase" id="buyButton">BUY</button>
+            <select id="select">
+                <option value="0" data-link="https://buy.stripe.com/bIYcP40j65EqbOU7sv">English</option>
+                <option value="1" data-link="https://buy.stripe.com/dR65mC7Ly6IubOUcMO">Vietnamese</option>
+                <option value="2" data-link="https://buy.stripe.com/cN25mC5Dqff01agbIJ">Spanish</option>
+            </select>
+        </div>
+        <script> 
+            // sets Main video
+            HLSVideo(document.getElementById("MainMediaBox"), [EnglLink], false); 
+
+            const MainVideo = document.getElementById("vjs_video_3_html5_api");
+            const Video1 = document.getElementById("vjs_video_3_html5_api");
+            const Video2 = document.getElementById("vjs_video_3_html5_api");
+            const Video3 = document.getElementById("vjs_video_3_html5_api");
+
+
+            // Uses canvas to mirror main video instead of 
+            // loading in 3 different videos for optimization
+            const Canvas1 = document.getElementById("canvas1"); 
+            const Canvas2 = document.getElementById("canvas2"); 
+            const Canvas3 = document.getElementById("canvas3");
+            
+            const cxt1 = Canvas1.getContext('2d');
+            const cxt2 = Canvas2.getContext('2d');
+            const cxt3 = Canvas3.getContext('2d');
+
+            // video syncing
+            function updateCanvas() {
+                cxt1.drawImage(Video1, 0,0, Canvas1.width, Canvas1.height);
+                cxt2.drawImage(Video2, 0,0, Canvas2.width, Canvas2.height);
+                cxt3.drawImage(Video3, 0,0, Canvas3.width, Canvas3.height);
+                requestAnimationFrame(updateCanvas);
+            }
+
+            updateCanvas();
+
+            MainVideo.addEventListener('play', () => {
+                updateCanvas();
+            });
+
+            //Did a bit of tinkering from here for the buy feature - Mohan//
+            // Track purchased languages
+            let purchasedLanguages = {
+                English: false,
+                Vietnamese: false,
+                Spanish: false
+            };
+            alerts = ["You need to buy the English language option first.", "You need to buy the Vietnamese language option first.", "You need to buy the Spanish language option first."]
+
+            // Label syncing
+            const Label = document.getElementsByClassName("LanguageLabel")[0];  
+            console.log(Label)
+            // Video Switching by grabbing current window.hls and loading with new source
+            document.getElementById("MainMediaBox").addEventListener("click", ()=> {
+                if (purchasedLanguages.English) {
+                    let time = MainVideo.currentTime;
+                    window.hls.loadSource(EnglLink.VideoLink);
+                    MainVideo.currentTime = time;
+                    Label.innerHTML = "English";
+                    if (MainVideo.paused){MainVideo.play();}else{MainVideo.pause();}
+                } 
+                else if (!purchasedLanguages.English && Label.innerHTML === "English") {
+                    MainVideo.pause();
+                    var msg = new SpeechSynthesisUtterance();
+                    msg.text = alerts[0];
+                    window.speechSynthesis.speak(msg);
+                    alert(alerts[0]);
+                }
+                else{
+                    MainVideo.pause();
+                }
+            });
+            document.getElementById("SidePlayer1").addEventListener("click", ()=> {
+                if (purchasedLanguages.English) {
+                    let time = MainVideo.currentTime;
+                    window.hls.loadSource(EnglLink.VideoLink);
+                    MainVideo.currentTime = time;
+                    Label.innerHTML = "English";
+                    MainVideo.play();
+                } else {
+                    MainVideo.pause();
+                    var msg = new SpeechSynthesisUtterance();
+                    msg.text = alerts[0];
+                    window.speechSynthesis.speak(msg);  
+                    alert(alerts[0]);
+                }
+            });
+            document.getElementById("SidePlayer2").addEventListener("click", ()=> {
+                if (purchasedLanguages.Vietnamese) {
+                    let time = MainVideo.currentTime;
+                    window.hls.loadSource(VietLink.VideoLink);
+                    MainVideo.currentTime = time;
+                    Label.innerHTML = "Vietnamese";
+                    MainVideo.play();
+                } else {
+                    MainVideo.pause();
+                    var msg = new SpeechSynthesisUtterance();
+                    msg.text = alerts[1];
+                    window.speechSynthesis.speak(msg);
+                    alert(alerts[1]);  
+                }
+            });
+            document.getElementById("SidePlayer3").addEventListener("click", ()=> {
+                if (purchasedLanguages.Spanish) {
+                    let time = MainVideo.currentTime;
+                    window.hls.loadSource(SpanLink.VideoLink);
+                    MainVideo.currentTime = time;
+                    Label.innerHTML = "Spanish";
+                    MainVideo.play();
+                } else {
+                    MainVideo.pause();
+                    var msg = new SpeechSynthesisUtterance();
+                    msg.text = alerts[2];
+                    window.speechSynthesis.speak(msg);
+                    alert(alerts[2]);
+                    
+                }
+            });
+        
+            const language_select = document.getElementById('select');
+            const buyButton = document.getElementById('buyButton');
+
+            buyButton.addEventListener('click', function() {
+                const index = language_select.selectedIndex;
+                const buyLanguage = language_select.options[index];
+                const language = buyLanguage.text;
+                const link = buyLanguage.getAttribute("data-link");
+                var audio = new Audio("ching.mp4");
+                audio.play();
+                setTimeout(function(){
+                    window.open(link);
+                },1200)
+                purchasedLanguages[language] = true;
+            });
+            
+        </script>
+    </div>
+</body>
+</html>
