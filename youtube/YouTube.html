@@ -1,35 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>  
-		<title> page </title>
+		<title> Youtube Player </title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<link rel="stylesheet" href="YouTubeStyle.css">
+		<link rel="stylesheet" href="YoutubeStyle.css">
 		<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.js"></script>
 		<script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
 		<script src=".\YouTubePlayer.js"></script>
 	</head>
-	<body> 
-		<div style = "color: white"> YouTube Streaming Demo</div>
-		<div class="MainMediaBox" id="MainMediaBox">
-			<div class="ignorer" id="player">
-				<iframe class="ignorer youtube_Iframe"></iframe>
-			</div>
-		</div>
-		<div class = "SideMediaBox">
-			<div class="SidePlayer" id = "SidePlayer1">
-				<iframe class="youtube_Iframe"></iframe>
-			</div>
-			<div class="SidePlayer" id = "SidePlayer2">
-				<iframe class="youtube_Iframe"></iframe>
-			</div>
-			<div class="SidePlayer" id = "SidePlayer3">
-				<iframe class="youtube_Iframe"></iframe>
-			</div>
-		</div>
-		
-	</body>
+	<body class="columnContainer"> 
+    <div id='top' class="MainTopBar rowContainer">
+      <button id="sideOpenBtn" class="sideOpenBtn" type="button">
+        <svg width="20" height="22" viewBox="0 0 20 22" xmlns="http://www.w3.org/2000/svg">
+          <rect y="2" width="20" height="4" rx="2"/>
+          <rect y="10" width="20" height="4" rx="2"/>
+          <rect y="18" width="20" height="4" rx="2"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="sideBarAndPlayers rowContainer">
+    
+    <div id="sideBar" class="sideBar columnContainer startClosed">
+      <div class="sideTopBar rowContainer">
+        <h2 class="sideBarText">YT Player Blocks</h2>
+        <button id="sideCloseBtn" class="sideCloseBtn" type="button">
+          <svg width="10" height="10" viewBox="3.5 3.5 9.075 9.075"  xmlns="http://www.w3.org/2000/svg">
+            <path d="M3.72 3.72a.75.75 0 0 1 1.06 0L8 6.94l3.22-3.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l3.22 3.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-3.22 3.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L6.94 8 3.72 4.78a.75.75 0 0 1 0-1.06Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <div class="allThePlayers columnContainer">
+      <div class="MainMediaBox SidePlayer" style="width: 45%;">
+        <div id="MainMediaBox"></div>
+        <input type="text" id="vidInput1" class="videoLinkInput" placeholder="Input a Youtube Link">
+      </div>
+
+      <div class="sidePlayers rowContainer">
+        <div class="SidePlayer">
+          <div id="SidePlayer1"></div>
+          <input type="text" id="vidInput2" class="videoLinkInput" placeholder="Input a Youtube Link">
+        </div>
+
+        <div class="SidePlayer">
+          <div id="SidePlayer2"></div>
+          <input type="text" id="vidInput3" class="videoLinkInput" placeholder="Input a Youtube Link">
+        </div>
+
+        <div class="SidePlayer">
+          <div id="SidePlayer3"></div>
+          <input type="text" id="vidInput4" class="videoLinkInput" placeholder="Input a Youtube Link">
+        </div>
+
+      </div>
+    </div>
+    </div>
+  </body>
 </html>

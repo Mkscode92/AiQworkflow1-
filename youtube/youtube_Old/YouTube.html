@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>  
+		<title> page </title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="YouTubeStyle.css">
+		<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
+		<script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+		<script src=".\YouTubePlayer.js"></script>
+	</head>
+	<body> 
+		<div style = "color: white"> YouTube Streaming Demo</div>
+		<div class="playerContainer" id="playerContainer">
+			<div class="rowContainer max-Height">
+				<div class="MainMediaBox">
+					<div class="MainMediaBox" id="MainMediaBox">
+						<iframe class="youtube_Iframe"></iframe>
+					</div>
+				</div>
+				<div class="sidePlayers columnContainer space-around max-Height">
+					<div class="SidePlayer">
+						<div id="SidePlayer1"></div>
+					</div>
+					<div class="SidePlayer">
+						<div id="SidePlayer2"></div>
+					</div>
+					<div class="SidePlayer">
+						<div id="SidePlayer3"></div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</body>
+</html>

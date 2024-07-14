@@ -1,18 +1,19 @@
 body {
-  background-color: rgb(0, 0, 0);
+  background: linear-gradient(60deg, #29323c 0%, #485563 100%);
   background-repeat: no-repeat;
-  margin: 0;
-  overflow: hidden;
+  background-attachment: fixed;
+  margin-top: 0px;
+  margin-bottom: 10vh;
+  margin-left: 0px;
+  position: relative;
+  scrollbar-width: none; /* Firefox */
   height: 100vh;
+  width: 100vw;
+  color: #a0a5aa;
+  animation-composition: replace;
 }
 
-.MainMediaBox {
-  background-color: rgb(0, 0, 0);
-  float: left;
-  width: 70%;
-  height: 90%;
-  border: 1px solid gray;
-}
+::-webkit-scrollbar { display: none; }  /* Safari and Chrome */
 
 .ignorer {
   float: none !important;
@@ -20,24 +21,52 @@ body {
   height: 100% !important;
 }
 
-.SideMediaBox {
-  width: 28%;
-  height: 80%;
-  float: right;
-  margin-right: 1%;
+
+.MainMediaBox{
+  width: 45%;
 }
 
-.SidePlayer {
-  background-color: rgb(0, 0, 0);
-  height: 37%;
-  margin-bottom: 1%;
-
-  border: 1px solid gray;
+.sidePlayers{
+  margin-top: 2vh;
+  width: 95%;
+  justify-content: space-around;
+  z-index: 5;
 }
 
-.youtube_Iframe {
-  border-width: 0px !important;
+.SidePlayer{
+  width: 30%;
+  z-index: 5;
+  min-width: 200px;
+  display:flex;
+  flex-direction:column;
+  /* margin-left: 1px; */
 }
+
+.plyr{
+  border: solid #1f262e;
+  border-width: 3px;
+  border-radius: 2px;
+  z-index: 5 !important;
+}
+
+.videoLinkInput{
+  max-height: 3vh;
+  width: 55%;
+  margin-top: 1%;
+  padding: 0px .2em 0px .2em;
+  border-width: 0px 0px 3px 0px !important;
+  border-bottom: solid #1f262e;
+  border-radius: 3px;
+  align-self: center;
+  z-index: 4 !important;
+}
+
+input[type="text"], textarea {
+  background-color : transparent;
+  color:rgb(255, 255, 255) 
+}
+
+textarea, select, input, button { outline: none; }
 
 .plyr.plyr--stopped .plyr__controls {
   display: none
@@ -47,6 +76,233 @@ body {
   display: none !important;
 }
 
-* {
-  outline: 1px solid rgba(10, 232, 32, 0) !important;
+.columnContainer{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.rowContainer{
+  display:flex;
+  flex-direction:row;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.centerX {
+  display:flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content:center;
+}
+
+.centerY {
+  display:flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content:center;
+}
+
+.evenly-spread{
+  justify-content: space-evenly;
+}
+
+.space-around{
+  justify-content: space-around;
+}
+
+.space-between{
+  justify-content: space-between;
+}
+
+.max-Height{
+  height: 100%;
+}
+
+.MainTopBar{
+  height: 8.3vh;
+  width: 97vw;
+  padding-left: 1vw;
+  padding-right: 2vw;
+  background-color: #161b22;
+  margin-bottom: 3vh;
+  justify-content: flex-start;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sideBarAndPlayers{
+  width: 100vw;
+  justify-content: space-between;
+}
+
+.sideBar{
+  display: flex;
+  flex-shrink: 0;
+  background-color: #242c38;
+  margin-top: -3vh;
+  position: relative;
+  border-right: solid 2px #33394a;
+  height: 103vh;
+  width: 20vw;
+  max-width: 20vw;
+  border-radius: 2px;
+  box-shadow: 4px 2px 7px 0px rgba(36, 44, 56, 0.7);
+}
+
+.sideTopBar{
+  width: 90%;
+  height: 35px;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  padding-bottom: 5%;
+  align-items: center;
+  justify-content: space-between;
+  
+  border-bottom: solid 2px #13151b;
+}
+
+.sideBarText{
+  margin-top: 0%;
+  margin-bottom: 0%;
+  text-align: center;
+  font-size: 100%;
+  color: #f3ecec;
+  font-weight:  800;
+}
+
+button.sideOpenBtn {
+  height: 30px;
+  width: 25px;
+  background-color: #292e36;
+  outline: solid 1px #191b20;
+  border-width: 0px;
+  border-radius: 3px;
+  padding: 0px 0px 0px 0px;
+  flex-shrink: 0;
+  fill: #cfd3d7;
+  cursor:pointer;
+}
+
+button.sideCloseBtn {
+  height: 25px;
+  width: 25px;
+  background-color: #292e36;
+  outline: solid 1px #191b20;
+  border-width: 0px;
+  border-radius: 3px;
+  padding: 0px 0px 0px 0px;
+  flex-shrink: 0;
+  fill: #cfd3d7;
+  cursor:pointer;
+}
+
+.allThePlayers{
+  position: relative;
+  width: 100%;
+}
+
+.startClosed{
+  width: 0vw;
+  transform: translate(-150%, 0%);
+  overflow: hidden;
+}
+/* ANIMATION AND INTERACTION STUFF BELOW */
+/* @keyframes duration | easing-function | delay | iteration-count | direction | fill-mode | play-state | name */
+/* @keyframes duration | easing-function | delay | name */
+@keyframes simpleShake {
+  0% {position: relative;}
+  25% {transform: translate(-5%, 0%);}
+  50% {transform: translate(5%, 0%);}
+  75% {transform: translate(-5%, 0%);}
+  100% {transform: translate(0%, 0%);}
+}
+
+@keyframes inputDrop {
+  0% {
+    transform: translate(0%, -250%); 
+    visibility: hidden; 
+    position: relative;
+    max-height: 0vh;
+    margin-top: 0px;
+  }
+  100% {
+    transform: translate(0%, 0%); 
+    visibility: visible; 
+    position: relative;
+    opacity: 1; /*  ehhh   */
+  }
+}
+@keyframes inputDrop_reversed{
+  0% {
+    transform: translate(0%, 0%); 
+    visibility: visible; 
+    position: relative;
+  }
+
+  100% {
+    transform: translate(0%, -250%); 
+    visibility: hidden; 
+    position: relative;
+    max-height: 0vh;
+    margin-top: 0px;
+    opacity: 0; /*  ehhh   */
+  }
+}
+
+@keyframes smoothCloseBtn {
+  0% {fill: #cfd3d7;}
+  100% {fill: #FFFFFF;}
+}
+
+@keyframes sideBarClosing {
+  0% {transform: translate(0%, 0%); width: 20vw;}
+  100% {transform: translate(-150%, 0%); width: 0vw;}
+}
+
+@keyframes sideBarOpening {
+  0% {transform: translate(-150%, 0%); width: 0vw;}
+  100% {transform: translate(0%, 0%); width: 20vw;}
+}
+
+.inputDropAnim {
+  overflow: hidden;
+  animation: 1500ms ease-in-out 0ms 1 normal forwards running inputDrop;
+}
+.inputDropAnim_reversed {
+  overflow: hidden;
+  animation: 1500ms ease-in-out 0ms 1 normal forwards running inputDrop_reversed;
+}
+
+.reverse {
+  animation-direction: reverse !important;
+}
+
+/*
+.videoLinkInput:focus{
+  animation: 500ms ease-in-out 300ms 1 normal forwards running simpleShake;
+}
+*/
+
+.MainMediaBox:hover{
+  overflow: auto;
+  resize: horizontal;
+}
+
+.SidePlayer:hover{
+  overflow: auto;
+  resize: horizontal;
+}
+
+
+button.closeSideBar:hover{
+  animation: 250ms ease-in-out 50ms 1 normal forwards running smoothCloseBtn;
+}
+
+.sideBarClosing {
+  overflow: hidden;
+  animation: 1500ms ease-in-out 0ms 1 normal forwards running sideBarClosing;
+}
+.sideBarOpening{
+  overflow: hidden;
+  animation: 1500ms ease-in-out 0ms 1 normal forwards running sideBarOpening;
 }
