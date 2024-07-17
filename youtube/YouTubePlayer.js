@@ -1,10 +1,10 @@
 const MediaBox = document.getElementById("MainMediaBox");
-const defaultSettings = {debug: 'true', ratio:'16:9'};
+const defaultSettings = {debug: 'false', ratio:'16:9'};
 let checks = true;
 let allPlyrs = [];
-//var link = "https://www.youtube.com/embed/eI4an8aSsgw";
-//let vidLink = "https://youtu.be/ErTef06r0R0?si=2KKESTwhoy0QR4rl";         //all three types of YT links
-//let vidLink = "https://www.youtube.com/watch?v=SlBOpNLFUC0&list=LL&index=1";
+let dragEvent = false;
+let img = document.createElement('img');
+let players = [];
 
 const vidIDGrabber = (link) => {
   let videoID = "";
@@ -98,8 +98,15 @@ const quickID = (idName) => {
 const plyrInputLinker = (plyrObj, inputElement) => {
   inputElement.addEventListener("change", () => {
     //console.log(inputElement.value);
+    if (inputElement.value.includes("delete")){plyrObj.inputElement.parentElement.remove()}
+
     let vidId = vidIDGrabber(inputElement.value); 
-    if (!vidId){return}
+    if (!vidId){
+      let cache = inputElement.style.color; // Very primitive bad link response, WILL CHANGE LATER.
+      inputElement.style.color = 'red';
+      setTimeout(() => {inputElement.style.color = cache}, 1000);
+      return;
+    }
 
     plyrObj.plyr.source = {
       type: 'video',
@@ -141,9 +148,8 @@ const hideSideBar = () => {
   let sideBar = quickID('sideBar');
   sideBar.classList.add('sideBarClosing');
   sideBar.classList.contains('sideBarOpening') ? sideBar.classList.remove('sideBarOpening') : "";
-  
+
   quickID('sideOpenBtn').disabled = true;
-  sideBar.addEventListener('animationend', () => {quickID('sideOpenBtn').disabled = false;});
 }
 
 const showSideBar = () => {
@@ -156,7 +162,171 @@ const showSideBar = () => {
   sideBar.classList.contains('sideBarClosing') ? sideBar.classList.remove('sideBarClosing') : "";
   
   quickID('sideOpenBtn').disabled = true;
-  sideBar.addEventListener('animationend', () => {quickID('sideOpenBtn').disabled = false;});
+  sideBar.addEventListener('animationend', () => {
+    quickID('sideOpenBtn').disabled = false;
+    if (sideBar.classList.contains('sideBarOpening')){
+      sideBar.style.overflow = 'visible';
+    }
+  });
+}
+
+const firefoxClientPos = () => {
+  if (!dragEvent){
+    window.addEventListener('dragover', (e) => {
+      dragEvent = e;
+    });
+  }
+}
+
+const dragListener = () => { // Weird way for firefox
+  let allBoxes = document.querySelectorAll('.emptyPlyrBox');
+  let dropZones = document.querySelectorAll('.editableRow');
+  allBoxes.forEach((box) => { boxDrag(box); });
+  /*
+  dropZones.forEach((zone) => {
+    zone.addEventListener('dragover', (e) => {
+      console.log('DRAGGED OVER');
+      e.preventDefault();
+      row.classList.add('shadowGlow');
+    });
+  });
+  */
+}
+
+const boxDrag = (box) => {
+  let editableRows = document.querySelectorAll('.editableRow');
+  let mouseX, mouseY;
+
+  box.addEventListener('dragstart', (e) => {
+    box.classList.add('dragging');
+    e.dataTransfer.setDragImage(img, 0, 0);
+    editableRows.forEach((row) => {
+      row.classList.add('shadowGlow'); // TEMPORARY
+    });
+  });
+  box.addEventListener('drag', (e) => {
+    mouseX = e.clientX, mouseY = e.clientY;
+    if (!mouseX && !mouseY){
+      firefoxClientPos();
+      mouseX = dragEvent.clientX, mouseY = dragEvent.clientY;
+    }
+    console.log(`x: ${mouseX}, y: ${mouseY}`);
+    //console.log(`x: ${mouseX}, y: ${mouseY}`);
+    box.style.position = 'absolute';
+    box.style.zIndex = '10';
+    box.style.left = `calc(${mouseX}px - 38%)`;
+    box.style.top = `calc(${mouseY}px - 19%)`;
+  });
+  box.addEventListener('dragend', (e) => {
+    box.classList.remove('dragging');
+    box.classList.add('fadeAway');
+    box.addEventListener('animationend', () => {
+      editableRows.forEach((row) => {
+        row.classList.remove('shadowGlow'); // TEMPORARY
+      });
+      box.remove();
+      addEmptyBox();
+    });
+    let currPos = {x: mouseX, y: mouseY};
+    let closest = findClosestElem(getPlayerDiv(currPos), currPos);
+    if (closest){
+      insertPlyr(closest);
+    }
+  });
+}
+
+const addEmptyBox = () => {
+  let box = document.getElementsByClassName('emptyPlyrBox')[2];
+  let boxesBox = document.getElementsByClassName('dropOvrflw')[0];
+  let newBox = box.cloneNode(true);
+  boxDrag(newBox);
+  boxesBox.appendChild(newBox);
+}
+
+const findClosestElem = (elementArray, currPos) => {
+  if (!elementArray){
+    return false;
+  }
+  const currX = currPos.x, currY = currPos.y;
+  const len = elementArray.length;
+  let closestElem = {elem: null, direction: null, xDist : 5000};
+  for (let m = 0; m < len; m++){
+    const elemBox = elementArray[m].getBoundingClientRect();
+    const leftDist = Math.abs(elemBox.left - currX), rightDist = Math.abs(elemBox.right - currX);
+    let closest, direction;
+    if (leftDist < rightDist){
+      closest = leftDist;
+      direction = 'left';
+    } else {
+      closest = rightDist;
+      direction = 'right';
+    }
+    if (closest < closestElem.xDist){
+      closestElem.elem = elementArray[m];
+      closestElem.xDist = closest;
+      closestElem.direction = direction;
+    }
+  }
+  return closestElem;
+}
+
+const getPlayerDiv = (currPos) => {
+  const currX = currPos.x, currY = currPos.y;
+  let editableDiv = false;
+  
+  const allDivs = document.elementsFromPoint(currX, currY);
+  allDivs.forEach((div) => {
+    if (div.classList.contains('editableRow')){
+      editableDiv = div.children;
+    }
+  });
+  return editableDiv;
+}
+
+const insertPlyr = (nearElmObj) => {
+  let parent = nearElmObj.elem.parentElement;
+
+  let sidePlayer = document.createElement('div');
+  sidePlayer.classList.add('SidePlayer');
+  //sidePlayer.style.width = nearElmObj.elem.style.width;
+
+  let plyr = document.createElement('div');
+  let newPlyr = plyrSetup(plyr, "https://www.youtube.com/watch?v=-oyqNzNxLhk", defaultSettings);
+  
+
+  let plyrInput = document.createElement('input');
+  plyrInput.type = 'text';
+  plyrInput.placeholder = 'Input a Youtube Link';
+  plyrInput.classList.add('videoLinkInput');
+  
+  sidePlayer.appendChild(plyr);
+  sidePlayer.appendChild(plyrInput);
+
+  plyrInputLinker(newPlyr, plyrInput);
+  newPlyr.plyr.on("play", () => {hideInput(newPlyr)});
+  newPlyr.plyr.on("pause", () => {showInput(newPlyr)});
+
+  let oldOrder = Number(nearElmObj.elem.style.order);
+  let direction = nearElmObj.direction;
+  let newOrder = (direction == 'left') ? oldOrder - 1 : oldOrder + 1;
+  sidePlayer.style.order = newOrder;
+  orderShifter(parent,newOrder, direction);
+  
+  
+  parent.appendChild(sidePlayer);
+}
+
+const orderShifter = (parent, order, direction) => {
+  let allChildren = parent.children;
+  let len = allChildren.length;
+  for (let m = 0; m < len; m++){
+    let currOrder = Number(allChildren[m].style.order);
+    if (direction == 'left' && currOrder <= order){
+      allChildren[m].style.order = currOrder - 1;
+    } else if (direction == 'right' && currOrder >= order){
+      allChildren[m].style.order = currOrder + 1;
+    }
+  }
 }
 
 const divOutliner = () => {
@@ -200,4 +370,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   quickID('sideOpenBtn').addEventListener('click', showSideBar);
   quickID('sideCloseBtn').addEventListener('click', hideSideBar);
+
+  dragListener();
+
+  document.addEventListener('click', (e) => {
+    //let list = document.querySelectorAll('.editableRow')[0].children;
+    //let position = {x : e.clientX, y: e.clientY};
+    //let closest = findClosestElem(getPlayerDiv(position), position);
+    //if (!closest) {return};
+    //insertPlyr(closest);
+  });
+
 });

@@ -6,14 +6,27 @@ body {
   margin-bottom: 10vh;
   margin-left: 0px;
   position: relative;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
   height: 100vh;
   width: 100vw;
+  max-width: 100vw;
   color: #a0a5aa;
   animation-composition: replace;
+  overflow-x: hidden;
 }
 
-::-webkit-scrollbar { display: none; }  /* Safari and Chrome */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Safari and Chrome */
+
+.x-anchor-menu-item .x-image img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}
 
 .ignorer {
   float: none !important;
@@ -21,35 +34,38 @@ body {
   height: 100% !important;
 }
 
-
-.MainMediaBox{
-  width: 45%;
-}
-
-.sidePlayers{
+.sidePlayers {
   margin-top: 2vh;
   width: 95%;
+  max-width: 95%;
   justify-content: space-around;
   z-index: 5;
+  overflow: scroll;
+  position: relative;
 }
 
-.SidePlayer{
+.SidePlayer {
+  position: relative;
   width: 30%;
   z-index: 5;
   min-width: 200px;
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
   /* margin-left: 1px; */
 }
 
-.plyr{
+.youtube_Iframe {
+  aspect-ratio: 16/9 !important;
+}
+
+.plyr {
   border: solid #1f262e;
   border-width: 3px;
   border-radius: 2px;
   z-index: 5 !important;
 }
 
-.videoLinkInput{
+.videoLinkInput {
   max-height: 3vh;
   width: 55%;
   margin-top: 1%;
@@ -62,11 +78,16 @@ body {
 }
 
 input[type="text"], textarea {
-  background-color : transparent;
-  color:rgb(255, 255, 255) 
+  background-color: transparent;
+  color: rgb(255, 255, 255)
 }
 
-textarea, select, input, button { outline: none; }
+textarea,
+select,
+input,
+button {
+  outline: none;
+}
 
 .plyr.plyr--stopped .plyr__controls {
   display: none
@@ -76,49 +97,57 @@ textarea, select, input, button { outline: none; }
   display: none !important;
 }
 
-.columnContainer{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
+.columnContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.rowContainer{
-  display:flex;
-  flex-direction:row;
+
+.rowContainer {
+  display: flex;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: space-around;
 }
 
-.centerX {
-  display:flex;
-  flex-direction:row;
-  align-items: center;
-  justify-content:center;
-}
-
-.centerY {
-  display:flex;
-  flex-direction:row;
-  align-items: center;
-  justify-content:center;
-}
-
-.evenly-spread{
-  justify-content: space-evenly;
-}
-
-.space-around{
+.editableRow{
+  display: flex;
+  position: relative;
+  flex-direction: row;
   justify-content: space-around;
 }
 
-.space-between{
+.centerX {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.centerY {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.evenly-spread {
+  justify-content: space-evenly;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.space-between {
   justify-content: space-between;
 }
 
-.max-Height{
+.max-Height {
   height: 100%;
 }
 
-.MainTopBar{
+.MainTopBar {
   height: 8.3vh;
   width: 97vw;
   padding-left: 1vw;
@@ -130,17 +159,19 @@ textarea, select, input, button { outline: none; }
   flex-shrink: 0;
 }
 
-.sideBarAndPlayers{
+.sideBarAndPlayers {
+  position: relative;
   width: 100vw;
   justify-content: space-between;
 }
 
-.sideBar{
+.sideBar {
   display: flex;
   flex-shrink: 0;
   background-color: #242c38;
   margin-top: -3vh;
   position: relative;
+  z-index: 10;
   border-right: solid 2px #33394a;
   height: 103vh;
   width: 20vw;
@@ -149,7 +180,54 @@ textarea, select, input, button { outline: none; }
   box-shadow: 4px 2px 7px 0px rgba(36, 44, 56, 0.7);
 }
 
-.sideTopBar{
+.emptyPlyrBox {
+  display: flex;
+  height: fit-content;
+  min-width: 200px;
+  width: 70%;
+  aspect-ratio: 16/9;
+  position: relative;
+  border: 3px solid #1f262e;
+  border-radius: 2px;
+  align-self: center;
+  background-color: #2b3645;
+  cursor: grab;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.dragDropTxt {
+  width: 100%;
+  text-align: center;
+  align-self: flex-start;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.plusSignSVG {
+  position: absolute;
+  fill: #689e6a;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dropPlyrs {
+  height: 34vh;
+  width: 90%;
+  border-bottom: solid 2px #13151b;
+  overflow: hidden;
+}
+
+.dropOvrflw {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 65vh;
+  width: 100%;
+}
+
+.sideTopBar {
   width: 90%;
   height: 35px;
   margin-top: 5%;
@@ -157,17 +235,17 @@ textarea, select, input, button { outline: none; }
   padding-bottom: 5%;
   align-items: center;
   justify-content: space-between;
-  
   border-bottom: solid 2px #13151b;
+  overflow: hidden;
 }
 
-.sideBarText{
+.sideBarText {
   margin-top: 0%;
   margin-bottom: 0%;
   text-align: center;
   font-size: 100%;
   color: #f3ecec;
-  font-weight:  800;
+  font-weight: 800;
 }
 
 button.sideOpenBtn {
@@ -180,7 +258,7 @@ button.sideOpenBtn {
   padding: 0px 0px 0px 0px;
   flex-shrink: 0;
   fill: #cfd3d7;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 button.sideCloseBtn {
@@ -193,81 +271,153 @@ button.sideCloseBtn {
   padding: 0px 0px 0px 0px;
   flex-shrink: 0;
   fill: #cfd3d7;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-.allThePlayers{
+.allThePlayers {
   position: relative;
   width: 100%;
 }
 
-.startClosed{
+.startClosed {
   width: 0vw;
   transform: translate(-150%, 0%);
   overflow: hidden;
 }
+
+
+
 /* ANIMATION AND INTERACTION STUFF BELOW */
 /* @keyframes duration | easing-function | delay | iteration-count | direction | fill-mode | play-state | name */
 /* @keyframes duration | easing-function | delay | name */
 @keyframes simpleShake {
-  0% {position: relative;}
-  25% {transform: translate(-5%, 0%);}
-  50% {transform: translate(5%, 0%);}
-  75% {transform: translate(-5%, 0%);}
-  100% {transform: translate(0%, 0%);}
+  0% {
+    position: relative;
+  }
+
+  25% {
+    transform: translate(-5%, 0%);
+  }
+
+  50% {
+    transform: translate(5%, 0%);
+  }
+
+  75% {
+    transform: translate(-5%, 0%);
+  }
+
+  100% {
+    transform: translate(0%, 0%);
+  }
 }
 
 @keyframes inputDrop {
   0% {
-    transform: translate(0%, -250%); 
-    visibility: hidden; 
+    transform: translate(0%, -250%);
+    visibility: hidden;
     position: relative;
     max-height: 0vh;
     margin-top: 0px;
   }
+
   100% {
-    transform: translate(0%, 0%); 
-    visibility: visible; 
+    transform: translate(0%, 0%);
+    visibility: visible;
     position: relative;
-    opacity: 1; /*  ehhh   */
+    opacity: 1;
+    /*  ehhh   */
   }
 }
-@keyframes inputDrop_reversed{
+
+@keyframes inputDrop_reversed {
   0% {
-    transform: translate(0%, 0%); 
-    visibility: visible; 
+    transform: translate(0%, 0%);
+    visibility: visible;
     position: relative;
   }
 
   100% {
-    transform: translate(0%, -250%); 
-    visibility: hidden; 
+    transform: translate(0%, -250%);
+    visibility: hidden;
     position: relative;
     max-height: 0vh;
     margin-top: 0px;
-    opacity: 0; /*  ehhh   */
+    opacity: 0;
+    /*  ehhh   */
   }
 }
 
 @keyframes smoothCloseBtn {
-  0% {fill: #cfd3d7;}
-  100% {fill: #FFFFFF;}
+  0% {
+    fill: #cfd3d7;
+  }
+
+  100% {
+    fill: #FFFFFF;
+  }
 }
 
 @keyframes sideBarClosing {
-  0% {transform: translate(0%, 0%); width: 20vw;}
-  100% {transform: translate(-150%, 0%); width: 0vw;}
+  0% {
+    transform: translate(0%, 0%);
+    width: 20vw;
+    overflow: hidden;
+  }
+
+  100% {
+    transform: translate(-150%, 0%);
+    width: 0vw;
+    overflow: hidden;
+  }
 }
 
 @keyframes sideBarOpening {
-  0% {transform: translate(-150%, 0%); width: 0vw;}
-  100% {transform: translate(0%, 0%); width: 20vw;}
+  0% {
+    transform: translate(-150%, 0%);
+    width: 0vw;
+  }
+
+  100% {
+    transform: translate(0%, 0%);
+    width: 20vw;
+  }
+}
+
+@keyframes fadeAway {
+  0% {
+    opacity: 1;
+    scale: 1;
+    transform: rotate(0turn)
+  }
+
+  100% {
+    opacity: 0;
+    scale: .5;
+    transform: rotate(.5turn)
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes dragging {
+  100% {
+    box-shadow: 5px 15px 5px 0px rgba(0, 0, 0, 0.25);
+  }
 }
 
 .inputDropAnim {
   overflow: hidden;
   animation: 1500ms ease-in-out 0ms 1 normal forwards running inputDrop;
 }
+
 .inputDropAnim_reversed {
   overflow: hidden;
   animation: 1500ms ease-in-out 0ms 1 normal forwards running inputDrop_reversed;
@@ -283,18 +433,18 @@ button.sideCloseBtn {
 }
 */
 
-.MainMediaBox:hover{
+.MainMediaBox:hover {
   overflow: auto;
   resize: horizontal;
 }
 
-.SidePlayer:hover{
+.SidePlayer:hover {
   overflow: auto;
   resize: horizontal;
 }
 
 
-button.closeSideBar:hover{
+button.closeSideBar:hover {
   animation: 250ms ease-in-out 50ms 1 normal forwards running smoothCloseBtn;
 }
 
@@ -302,7 +452,25 @@ button.closeSideBar:hover{
   overflow: hidden;
   animation: 1500ms ease-in-out 0ms 1 normal forwards running sideBarClosing;
 }
-.sideBarOpening{
+
+.sideBarOpening {
   overflow: hidden;
   animation: 1500ms ease-in-out 0ms 1 normal forwards running sideBarOpening;
+}
+
+.fadeAway {
+  animation: 700ms ease-in-out 0ms 1 normal forwards running fadeAway;
+}
+
+.shadowGlow {
+  animation: 500ms ease-in-out 0ms 1 normal forwards running glow;
+}
+.shadowGlow_R {
+  animation: 500ms ease-in-out 0ms 1 reverse forwards running glow;
+}
+
+.dragging {
+  cursor: grabbing !important;
+  z-index: 10 !important;
+  animation: 500ms ease-in-out 0ms 1 normal forwards running dragging;
 }
