@@ -1,30 +1,50 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+@font-face {
+    font-family: 'PlutoTV';
+    src: url('PlutoTVSansV11Regular.ttf') format('truetype');
+    font-style: normal;
+}
+
 body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #3b545c;
-    font-family: "Nunito Sans", sans-serif;
+    background-color: #000000;
+    font-family: 'PlutoTV', sans-serif; /*"Nunito Sans", sans-serif*/;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    background-color: #2196F3;
+    background-color: #322f2f /*#2196F3*/;
     width: 300px;
-    padding: 10px;
-    border: 2px solid red;
-    justify-content: center;
+    padding: 10px 12px 10px 12px;
+    box-shadow: 0px 0px 12px white;
+    border-radius: 10px;
+    z-index: 1000;
+    border: 3px solid rgba(255, 255, 255, 0.1); 
     text-align: center;
     animation: fadeIn 0.5s ease-in-out;
 }
 
+.grid-container:hover{
+    background-color: #1f1f1f;
+    cursor: pointer;
+    border-color: #fff200;
+    box-shadow: 0px 0px 12px #fff200;
+}
+
 .item {
-    width: 200px;
+    width: auto;
     grid-column-start: 2;
     grid-column-end: 4;
-    border: 2px solid black;
-    border-radius: 5px;
 }
 
 .country {
@@ -34,13 +54,15 @@ body{
     grid-row-end: 4;
     border: 2px solid black;
     border-radius: 10px;
+    background-color: white;
     width: 100px;
     height: 100px;
-    background-color: white;
+    color: black;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
+    box-shadow: 0px 0px 5px white;
 }
 
 
@@ -53,11 +75,25 @@ body{
 }
 
 #searchbar {
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    width: 50%;
+    padding: 5px 10px 5px 10px;
+    border: 0;
+    border-bottom: 2px solid #a8a8a8;
+    width: 320px;
+    background-color: #000000;
     box-sizing: border-box;
+    color: white;
+}
+
+#searchbar:focus {
+    border: 2px solid #fff200;
+    border-radius: 25px; 
+    outline: none; 
+}
+
+
+::placeholder{
+    color: #a8a8a8;
+    font-weight: bold;
 }
 
 #USA, #Mexico, #Canada {
@@ -86,10 +122,14 @@ body{
     display: none;
 }
 select{
-    border: 2px solid black;
+    margin: 10px;
+    border: 2px solid #fff200;
     border-radius: 5px;
-    width: 40%;
+    width: 25%;
     height: 30px;
-    background-color: #aa33ff;
+    background-color: #322f2f;
     color: white;
 }
+
+
+
