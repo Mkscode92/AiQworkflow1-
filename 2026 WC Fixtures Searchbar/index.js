@@ -1,36 +1,20 @@
-
-
 function search_fixture() {
-    let input = document.getElementById('searchbar').value
-    input = input.toLowerCase();
-    let x = document.getElementsByClassName('grid-container');
-  
-    for (i = 0; i < x.length; i++) {
-      if (!x[i].innerHTML.toLowerCase().includes(input)) {
-        x[i].classList.add("hidden");
-      }
-      else {
-        x[i].classList.remove("hidden");
-      }
+  let input = document.getElementById('searchbar').value
+  input = input.toLowerCase();
+  let x = document.getElementsByClassName('grid-container');
+
+  for (i = 0; i < x.length; i++) {
+    if (!x[i].innerHTML.toLowerCase().includes(input)) {
+      x[i].classList.add("hidden");
+    }
+    else {
+      x[i].classList.remove("hidden");
     }
   }
+}
 
-// function country_pick() {
-//   var select = document.getElementById("select");
-//   var country = select.options[select.selectedIndex].innerHTML;
-//   let x = document.getElementsByClassName("grid-container");
-  
-//     for (i = 0; i < x.length; i++) {
-//       if (!x[i].innerHTML.includes(country)) {
-//         x[i].classList.add("hidden");
-//       }
-//       else {
-//         x[i].classList.remove("hidden");
-//       }
-//     }
-// }
-
-document.getElementById('addFixtureButton').addEventListener('click', function() {
+//add fixture
+function addFixture() {
   // Create a new div element for the grid container
   const newFixture = document.createElement('div');
   newFixture.classList.add('grid-container');
@@ -56,13 +40,15 @@ document.getElementById('addFixtureButton').addEventListener('click', function()
   let buttons = document.getElementById("buttonContainer");
   let parent = buttons.parentNode;
   parent.insertBefore(newFixture, buttons)
-});
+}
 
-// delete div
-document.getElementById('deleteFixtureButton').addEventListener('click', function() {
+// delete fixture
+function deleteFixture() {
+  var msg = new SpeechSynthesisUtterance();
+  msg.text = "Delete Mode ON: Click on a fixture to delete it.";
+  window.speechSynthesis.speak(msg);
   alert("Delete Mode ON: Click on a fixture to delete it.");
   const fixtures = document.querySelectorAll('.grid-container');
-  console.log(fixtures);
   var counter = 0;
   fixtures.forEach((fixture, index) => {
       fixture.addEventListener('click', function() {
@@ -71,10 +57,29 @@ document.getElementById('deleteFixtureButton').addEventListener('click', functio
           } 
           else {
             fixture.remove();
-            console.log("removed");
+            const text = fixture.getElementsByClassName("item")[1].innerHTML;
+            msg.text = `Fixture, ${text}, deleted.`;
+            window.speechSynthesis.speak(msg);
             counter ++;
           }
       });
   });
-});
+}
+
   
+  
+// function country_pick() {
+//   var select = document.getElementById("select");
+//   var country = select.options[select.selectedIndex].innerHTML;
+//   let x = document.getElementsByClassName("grid-container");
+  
+//     for (i = 0; i < x.length; i++) {
+//       if (!x[i].innerHTML.includes(country)) {
+//         x[i].classList.add("hidden");
+//       }
+//       else {
+//         x[i].classList.remove("hidden");
+//       }
+//     }
+// }
+
