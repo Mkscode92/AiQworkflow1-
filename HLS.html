@@ -62,39 +62,37 @@
                 requestAnimationFrame(updateCanvas);
             }
 
+            MainVideo.addEventListener('play', () => {updateCanvas();})
             updateCanvas();
-
-            MainVideo.addEventListener('play', () => {
-                updateCanvas();
-            })
            
             // Label syncing
             const Label = document.getElementsByClassName("LanguageLabel")[0]; 
 
+            function ChangeLanguage(language, captionsrc, videosrc) {
+                let time = MainVideo.currentTime;
+                window.hls.loadSource(videosrc);
+                MainVideo.currentTime = time;
+                Label.innerHTML = language;
+                MainVideo.play();
+
+                var tracks = document.getElementsByTagName("track")
+                for (let i = 0; i < tracks.length; i++) {
+                    MainVideo.removeChild(tracks[i]);
+                }
+
+                const TrackElem = document.createElement("track");
+                TrackElem.src = captionsrc;
+                TrackElem.default = true;
+                MainVideo.append(TrackElem);
+
+            }
             
+            ChangeLanguage(EnglLink.Label, EnglLink.SubtitleLink, EnglLink.VideoLink);
             //Video Switching by grabbing current window.hls and loading with new source
             //,,,maybe a bad idea loading new sources instead of cacheing idk how to code lol 
-            Canvas1.addEventListener("click", ()=> {
-                let time = MainVideo.currentTime;
-                window.hls.loadSource(EnglLink.VideoLink);
-                MainVideo.currentTime = time;
-                Label.innerHTML = "English";
-                MainVideo.play();
-            })
-            Canvas2.addEventListener("click", ()=> {
-                let time = MainVideo.currentTime;
-                window.hls.loadSource(VietLink.VideoLink);
-                MainVideo.currentTime = time;
-                Label.innerHTML = "Vietnamese";
-                MainVideo.play();
-            })
-            Canvas3.addEventListener("click", ()=> {
-                let time = MainVideo.currentTime;
-                window.hls.loadSource(SpanLink.VideoLink);
-                MainVideo.currentTime = time;
-                Label.innerHTML = "Spanish";
-                MainVideo.play();
-            }) 
+            Canvas1.addEventListener("click", ()=> {ChangeLanguage(EnglLink.Label, EnglLink.SubtitleLink, EnglLink.VideoLink);})
+            Canvas2.addEventListener("click", ()=> {ChangeLanguage(SpanLink.Label, SpanLink.SubtitleLink, SpanLink.VideoLink);})
+            Canvas3.addEventListener("click", ()=> {ChangeLanguage(VietLink.Label, VietLink.SubtitleLink, VietLink.VideoLink);}) 
         
             // Buy button -- Mohan Code //
            
