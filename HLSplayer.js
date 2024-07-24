@@ -1,21 +1,19 @@
 const EnglLink = {
     VideoLink: "https://dfflvukqjg5l4.cloudfront.net/Leo1080p_English/Leo1080p_English_with_CC720pLeoEnglishModified.m3u8",
     SubtitleLink: "languages/English.vtt",
-    label: 'English',
+    Label: 'English',
 }; // English
 
 const SpanLink = {
     VideoLink: "https://dfflvukqjg5l4.cloudfront.net/Leo1080p_Spanish/Leo1080p_Spanish - Made with Clipchamp720pLeoSpanishModified.m3u8",
     SubtitleLink: "languages/Spanish.vtt",
-    label: 'Spanish',
-
-
+    Label: 'Español',
 };  //Spanish
 
 const VietLink =  {
     VideoLink: "https://dfflvukqjg5l4.cloudfront.net/Leo1080p_Viet/LeoVietDubLeoVietnameseModified.m3u8",
     SubtitleLink: "languages/Vietnamese.vtt",
-    label: 'Vietnamese',
+    Label: 'Tiếng Việt',
 };//Viet
 
 
