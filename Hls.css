@@ -22,10 +22,10 @@ body {
     box-sizing: border-box;
 }
 
-/* MainPlayer */
+/* MainPlayer  */
 
 .MediaBoxHLS {
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     border-radius: 1%;
     margin: 0%;
     height: 100%;
@@ -112,4 +112,4 @@ body {
         height: 80%;
         margin-top: -7%;
     }
-}
+} 

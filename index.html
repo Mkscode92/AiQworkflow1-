@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>  
-        <title> page </title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
+<head>  
+    <title> page </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 
-        <script src="https://cdn.jsdelivr.net/npm/@millicast/sdk@latest/dist/millicast.umd.js"></script>
-        
-    </head>
-    <body> 
-        <div class=MediaBox> 
-            <div id="millicasttitle"> WebRTC LiVE demo</div>
-            <div class="MainMediaBox" id="MainMediaBox"> 
-                <div>Call or TEXT at 1.949.993.8633</div>
-            </div>
-            <div class = "SideMediaBox">
-                <div class="SidePlayer" id = "SidePlayer1">p</div>
-                <div class="SidePlayer" id = "SidePlayer2">p</div>
-                <div class="SidePlayer" id = "SidePlayer3">p</div>
-            </div>
-            <script src="WebRTCPlayer.js"></script>
-        </div> 
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/@millicast/sdk@latest/dist/millicast.umd.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@voxeet/voxeet-web-sdk"></script>
+    
+</head>
+<body> 
+    <div class="MediaBoxWebRTC">
+        <div id="WebRTC demo" style="color: white;">WebRTC demo</div>
+        <div style="background-color: rgb(51, 51, 51); color: red; width: 3%; text-align: center;">LiVE</div>
+
+        <div class="MainMediaBox" id="MainMediaBox"></div>
+        <div class = "SideMediaBox">
+            <div class="SidePlayer" id = "SidePlayer1"></div>
+            <div class="SidePlayer" id = "SidePlayer2"></div>
+            <div class="SidePlayer" id = "SidePlayer3"></div>
+        </div>
+        <button id ="AddStream">Add Stream </button>
+        <button id = "RemoveStream">Remove Stream</button>
+        <script src="Comms.js"></script>
+    </div> 
+</body>
 </html>

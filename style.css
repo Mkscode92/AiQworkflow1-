@@ -8,49 +8,57 @@ body {
     margin: 0;
     height: 100vh;
     
+    overflow: hidden;
 }
 
-/* WebRTS */ 
-.MediaBox {
+
+/* MainPlayer */
+
+.MediaBoxWebRTC {
     background-color: black;
     border-radius: 1%;
     margin: 0%;
     height: 100%;
     padding-left: 2%;
-
-}
-
-#millicasttitle {
-    color: white;
 }
 
 .MainMediaBox {
-    background-color: rgb(0, 0, 0);
-    float: left;
-    width: 70%;
-    height: 90%;
-    display: flex;
+    position: relative;
+    width: 98%;
+    height: 50%;
+    
 
     border: 1px solid gray;
+    text-align: center;
 }
 
-.MainMediaBox div {
-    color: rgb(233, 233, 233);
-    padding: 34%;
+/* SidePlayer */
 
-}
-
-.SideMediaBox {
-    width: 28%;
-    height: 80%;
-    float: right;
+.SideMediaBox{
+    width: 98%;
+    height: 40%;
 
     margin-right: 1%;
-}
-
-.SidePlayer {
-    height: 37%;
-    margin-bottom: 1%;
+    
+    display: flex;
+    
 
     border: 1px solid gray;
+}
+
+
+.SidePlayer{
+    height: 100%;
+    width: 33.33%;
+    
+    border: 1px solid gray;
+    text-align: center;
+} 
+
+.SidePlayer:hover {
+    border: white;
+}
+
+.Stream {
+   height: 100%;
 }

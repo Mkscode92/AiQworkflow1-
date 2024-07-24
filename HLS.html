@@ -37,10 +37,12 @@
             </select>
         </div>
         <script> 
-            // sets Main video
-            HLSVideo(document.getElementById("MainMediaBox"), [EnglLink], false); 
+            
 
-            const MainVideo = document.getElementById("vjs_video_3_html5_api");
+            // sets Main video
+
+            
+            const MainVideo = HLSVideo(document.getElementById("MainMediaBox"), [EnglLink], false); 
 
             // Uses canvas to mirror main video instead of 
             // loading in 3 different videos for optimization
@@ -72,27 +74,27 @@
             
             //Video Switching by grabbing current window.hls and loading with new source
             //,,,maybe a bad idea loading new sources instead of cacheing idk how to code lol 
-            document.getElementById("SidePlayer1").addEventListener("click", ()=> {
+            Canvas1.addEventListener("click", ()=> {
                 let time = MainVideo.currentTime;
                 window.hls.loadSource(EnglLink.VideoLink);
                 MainVideo.currentTime = time;
                 Label.innerHTML = "English";
                 MainVideo.play();
             })
-            document.getElementById("SidePlayer2").addEventListener("click", ()=> {
+            Canvas2.addEventListener("click", ()=> {
                 let time = MainVideo.currentTime;
                 window.hls.loadSource(VietLink.VideoLink);
                 MainVideo.currentTime = time;
                 Label.innerHTML = "Vietnamese";
                 MainVideo.play();
             })
-            document.getElementById("SidePlayer3").addEventListener("click", ()=> {
+            Canvas3.addEventListener("click", ()=> {
                 let time = MainVideo.currentTime;
                 window.hls.loadSource(SpanLink.VideoLink);
                 MainVideo.currentTime = time;
                 Label.innerHTML = "Spanish";
                 MainVideo.play();
-            })
+            }) 
         
             // Buy button -- Mohan Code //
            

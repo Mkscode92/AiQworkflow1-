@@ -2,8 +2,6 @@ const EnglLink = {
     VideoLink: "https://dfflvukqjg5l4.cloudfront.net/Leo1080p_English/Leo1080p_English_with_CC720pLeoEnglishModified.m3u8",
     SubtitleLink: "languages/English.vtt",
     label: 'English',
-
-
 }; // English
 
 const SpanLink = {
@@ -59,8 +57,6 @@ function AddSubtitle(SubtitleElement,player,Presets) {
 
     player.addRemoteTextTrack(Presets);
 
-
-
     SubtitleOption.addEventListener('click', function() {
         for (let i = 0; i < player.textTracks().length; i++) {
             player.textTracks()[i].mode = 'hidden';
@@ -71,83 +67,99 @@ function AddSubtitle(SubtitleElement,player,Presets) {
 
 function HLSVideo(ParentElement,Source, NetflixUI) { //ParentNode , Source Array, if (Bool = false) NetflixUI = false
     // Create a video element
-    var video = document.createElement('video');
+    var video;
     var hls = new Hls();
 
-    // Set styles
-    video.className = "video-js";
-    video.type = 'application/x-mpegURL';
+    if (ParentElement.nodeName == "VIDEO") {  // checks if element is a video otherwise creates video node
+        video = ParentElement;
+    } else {
+        video = document.createElement("video");
 
-    // Append the video element to the parent element first
-    ParentElement.appendChild(video);
+        // Set styles
+        video.className = "video-js";
+        video.type = 'application/x-mpegURL';
+        video.controls = true;
+        video.playsInline = true;
 
-    // Then, initialize the video.js player with the video element
-    const player = videojs(video, { controls: true });
-
-    player.ready(function() {
-        // Add a caption track
+        // Append the video element to the parent element first
+        ParentElement.appendChild(video);
+    }
+    
+    if (Hls.isSupported()) {
         if (NetflixUI) {
-            var controlBar = player.controlBar;
-            controlBar.removeChild('seekToLive');
-            controlBar.removeChild('pictureInPictureToggle');
+            // Then, initialize the video.js player with the video element
+            const player = videojs(video, { controls: true, autoplay: true });
+            player.ready(function() {
+                // Add a caption track
+                var controlBar = player.controlBar;
+                controlBar.removeChild('seekToLive');
+                controlBar.removeChild('pictureInPictureToggle');
 
-            var button = controlBar.getChild('subsCapsButton');
-            var coverDiv = document.createElement('div');
-            var ExitButton = document.createElement('button');
-            var AudioList = document.createElement('div');
-            var SubtitleList = document.createElement('div');
+                var button = controlBar.getChild('subsCapsButton');
+                var coverDiv = document.createElement('div');
+                var ExitButton = document.createElement('button');
+                var AudioList = document.createElement('div');
+                var SubtitleList = document.createElement('div');
 
-            coverDiv.classList = "LanguagePanel";
-            ExitButton.classList = "exitButton";
-            AudioList.classList = "AudioList";
-            SubtitleList.classList = "SubtitleList";
+                coverDiv.classList = "LanguagePanel";
+                ExitButton.classList = "exitButton";
+                AudioList.classList = "AudioList";
+                SubtitleList.classList = "SubtitleList";
 
-            // Append the cover div to the video element
-            ParentElement.append(coverDiv);
-            coverDiv.append(ExitButton);
-            coverDiv.append(AudioList);
-            coverDiv.append(SubtitleList);
+                // Append the cover div to the video element
+                ParentElement.append(coverDiv);
+                coverDiv.append(ExitButton);
+                coverDiv.append(AudioList);
+                coverDiv.append(SubtitleList);
 
-            // Add event listener to the button
-            button.on('click', function() {
-                // Toggle the visibility of the cover div when the button is clicked
-                coverDiv.style.display = 'block';
-                coverDiv.style.pointerEvents = 'all';
-            });
-            ExitButton.addEventListener('click', function() {
-                coverDiv.style.display = 'none';
-                coverDiv.style.pointerEvents = 'none';
-            })
-            ExitButton.textContent = "X";
-
-            AddSubtitle(SubtitleList, player, {
-                kind: 'captions',
-                label: 'Off',
-                src: ''
-            })
-
-            for (let i = 0; i < Source.length; i++) {
-                AddAudio(AudioList, player, {
-                    label: Source[i].label,
-                    src: Source[i].VideoLink,
-                    NetflixUI: true
+                // Add event listener to the button
+                button.on('click', function() {
+                    // Toggle the visibility of the cover div when the button is clicked
+                    coverDiv.style.display = 'block';
+                    coverDiv.style.pointerEvents = 'all';
+                });
+                ExitButton.addEventListener('click', function() {
+                    coverDiv.style.display = 'none';
+                    coverDiv.style.pointerEvents = 'none';
                 })
-                
+
+                video.addEventListener('play', function() {
+                    
+                    console.log("hi");
+                })
+
+                ExitButton.textContent = "X";
+
                 AddSubtitle(SubtitleList, player, {
                     kind: 'captions',
-                    label: Source[i].label,
-                    src: Source[i].SubtitleLink,
-                    NetflixUI: true
+                    label: 'Off',
+                    src: ''
                 })
-            }
-        }
-        
-    });
 
+                for (let i = 0; i < Source.length; i++) {
+                    AddAudio(AudioList, player, {
+                        label: Source[i].label,
+                        src: Source[i].VideoLink,
+                        NetflixUI: true
+                    })
+                    
+                    AddSubtitle(SubtitleList, player, {
+                        kind: 'captions',
+                        label: Source[i].label,
+                        src: Source[i].SubtitleLink,
+                        NetflixUI: true
+                    })
+                }
+            });
+            
+        };
+    
+    };
     // Hls
 
     hls.loadSource(Source[0].VideoLink);
     hls.attachMedia(video);
     window.hls = hls;
 
+    return video;
 }
